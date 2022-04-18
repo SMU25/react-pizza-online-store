@@ -19,7 +19,7 @@ export const Header = () => {
           </div>
         </Link>
         <div className="header__cart">
-          <Link to="/card">
+          <Link to="/cart">
             <Button className="button--cart">
               <span>520 ₽</span>
               <div className="button__delimiter"></div>
