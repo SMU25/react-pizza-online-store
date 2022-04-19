@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 
-const listItem = ["популярности", "цене", "алфавиту"];
+const listItem = [
+  { name: "популярности", type: "popular" },
+  { name: "цене", type: "price" },
+  { name: "алфавиту", type: "alphabet" },
+];
 
 export const SortPopup = () => {
   const [isOpenPopup, setIsOpenPopup] = useState(false);
-  const [isActiveItem, setIsActiveItem] = useState(listItem[0]);
+  const [isActiveItem, setIsActiveItem] = useState(listItem[0].name);
 
   const sortRef = useRef(null);
 
@@ -40,14 +44,14 @@ export const SortPopup = () => {
           <ul>
             {listItem.map((item) => (
               <li
-                key={item}
-                className={isActiveItem === item ? "active" : ""}
+                key={item.type}
+                className={isActiveItem === item.name ? "active" : ""}
                 onClick={() => {
-                  setIsActiveItem(item);
+                  setIsActiveItem(item.name);
                   setIsOpenPopup(false);
                 }}
               >
-                {item}
+                {item.name}
               </li>
             ))}
           </ul>
