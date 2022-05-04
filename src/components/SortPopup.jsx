@@ -1,14 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, memo } from "react";
 
-const listItem = [
-  { name: "популярности", type: "popular" },
-  { name: "цене", type: "price" },
-  { name: "алфавиту", type: "alphabet" },
-];
-
-export const SortPopup = () => {
+export const SortPopup = memo(({ sortItemsPizza }) => {
   const [isOpenPopup, setIsOpenPopup] = useState(false);
-  const [isActiveItem, setIsActiveItem] = useState(listItem[0].name);
+  const [isActiveItem, setIsActiveItem] = useState(sortItemsPizza[0].name);
 
   const sortRef = useRef(null);
 
@@ -42,7 +36,7 @@ export const SortPopup = () => {
       {isOpenPopup && (
         <div className="sort__popup">
           <ul>
-            {listItem.map((item) => (
+            {sortItemsPizza.map((item) => (
               <li
                 key={item.type}
                 className={isActiveItem === item.name ? "active" : ""}
@@ -59,4 +53,4 @@ export const SortPopup = () => {
       )}
     </div>
   );
-};
+});

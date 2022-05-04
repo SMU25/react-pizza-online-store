@@ -1,23 +1,26 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
+import { LoadingItem } from "components";
+
 const typeNames = ["тонкое", "традиционное"];
 const sizeNames = [26, 30, 40];
 
 export const PizzaItem = ({
-  id,
+  // id,
   imageUrl,
   name = "Без названия",
   types = [],
   sizes = [],
   price = 0,
-  category,
-  rating,
+  // category,
+  // rating,
+  isLoaded = true,
 }) => {
   const [isActiveType, setIsActiveType] = useState(typeNames[types[0]]);
   const [isActiveSize, setIsActiveSize] = useState(sizes[0]);
 
-  return (
+  return isLoaded ? (
     <div className="pizza-block">
       <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
       <h4 className="pizza-block__title">{name}</h4>
@@ -77,6 +80,8 @@ export const PizzaItem = ({
         </div>
       </div>
     </div>
+  ) : (
+    <LoadingItem />
   );
 };
 
@@ -86,4 +91,5 @@ PizzaItem.propTypes = {
   price: PropTypes.number,
   types: PropTypes.arrayOf(PropTypes.number),
   sizes: PropTypes.arrayOf(PropTypes.number),
+  isLoaded: PropTypes.bool,
 };

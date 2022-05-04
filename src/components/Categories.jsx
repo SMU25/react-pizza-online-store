@@ -1,33 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 
-const categoriesPizza = [
-  "Все",
-  "Мясные",
-  "Вегетарианские",
-  "Гриль",
-  "Острые",
-  "Закрытые",
-];
+export const Categories = memo(({ onSelectCategory, categoriesPizza }) => {
+  const [isActiveCategory, setIsActiveCategory] = useState(null);
 
-export const Categories = () => {
-  const [isActiveCategory, setIsActiveCategory] = useState(
-    categoriesPizza?.[0]
-  );
+  const onSelectItem = (name) => {
+    setIsActiveCategory(name);
+    onSelectCategory(name);
+  };
 
   return (
     <div className="categories">
       <ul>
         {categoriesPizza &&
-          categoriesPizza.map((pizza) => (
+          categoriesPizza.map((category) => (
             <li
-              key={pizza}
-              className={isActiveCategory === pizza ? "active" : ""}
-              onClick={() => setIsActiveCategory(pizza)}
+              key={category.type}
+              className={isActiveCategory === category.type ? "active" : ""}
+              onClick={() => onSelectItem(category.type)}
             >
-              {pizza}
+              {category.name}
             </li>
           ))}
       </ul>
     </div>
   );
-};
+});
