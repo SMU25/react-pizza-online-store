@@ -41,6 +41,7 @@ export const PizzaCard = ({
   //додати transition на типи і розміри
   // юзати компоненти для перекладу
   // щоббув прайс в баксах
+  // В стилі додати Capitalize для усіх елементів
   return (
     <div className="pizza-block">
       <img className="pizza-block__image" src={imageUrl} alt="Pizza" />

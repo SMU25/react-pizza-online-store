@@ -29,6 +29,7 @@
     .active {
       color: $black;
       cursor: default;
+      pointer-events: none;
     }
   }
 

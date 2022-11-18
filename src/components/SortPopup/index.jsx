@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef, memo } from "react";
-import { useTranslation } from "react-i18next";
 import cn from "classnames";
+import { useTranslation } from "react-i18next";
 import { ReactComponent as Arrow } from "assets/icons/arrow-top.svg";
 import { SortItem } from "./SortItem";
 import { T_PREFIX } from "./constants";
@@ -51,7 +51,7 @@ export const SortPopup = memo(({ sortItemsPizza }) => {
             {sortItemsPizza.map((sortItem) => (
               <SortItem
                 key={sortItem.id}
-                activeItemId={activeItem.id}
+                className={cn({ active: sortItem.id === activeItem.id })}
                 sortItem={sortItem}
                 setSortBy={setSortBy}
               />
