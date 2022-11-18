@@ -1,8 +1,36 @@
 @import "../variables";
 
 .header {
-  border-bottom: 1px solid $gray-line;
+  position: sticky;
+  top: 0;
+  background-color: #fff;
   padding: 40px 0;
+  border-bottom: 1px solid $gray-line;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  z-index: 9999;
+
+  .language-chooser {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    display: flex;
+
+    & li {
+      padding: 0 5px;
+      color: $orange;
+      cursor: pointer;
+      transition: $duration;
+    }
+    & li + li {
+      border-left: 1px solid $black;
+    }
+
+    .active {
+      color: $black;
+      cursor: default;
+    }
+  }
 
   .container {
     display: flex;
@@ -13,7 +41,7 @@
   &__logo {
     display: flex;
 
-    img {
+    svg {
       margin-right: 15px;
     }
 

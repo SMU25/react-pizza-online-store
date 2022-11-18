@@ -1,33 +1,27 @@
 import React, { useEffect, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
-
-import { Categories, SortPopup, PizzaItem } from "components";
-
 import { getPizzaItems } from "redux/actions/pizzaItems";
 import { setCategory } from "redux/actions/filters";
+import { Categories, SortPopup, PizzaItems } from "components";
+import { CATEGORIES_PIZZA } from "constants/categories";
+import { SORT_ITEMS_PIZZA } from "constants/sortItems";
 
-const categoriesPizza = [
-  { name: "Все", type: "all" },
-  { name: "Мясные", type: "meat" },
-  { name: "Вегетарианские", type: "vegetarian" },
-  { name: "Гриль", type: "grill" },
-  { name: "Острые", type: "spicy" },
-  { name: "Закрытые", type: "closed" },
-];
+const T_PREFIX = "home";
 
-const sortItemsPizza = [
-  { name: "популярности", type: "popular" },
-  { name: "цене", type: "price" },
-  { name: "алфавиту", type: "alphabet" },
-];
+const HEADING = "title";
 
 export const Home = () => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
 
   const { items: pizzaItems, isLoaded } = useSelector(
     ({ pizzaItems }) => pizzaItems
   );
+  //CHANGE винести в селектори
   const { category, sortBy } = useSelector(({ filters }) => filters);
+  //CHANGE винести в селектори
 
   useEffect(() => {
     dispatch(getPizzaItems());
@@ -45,21 +39,12 @@ export const Home = () => {
       <div className="content__top">
         <Categories
           onSelectCategory={onSelectCategory}
-          categoriesPizza={categoriesPizza}
+          categoriesPizza={CATEGORIES_PIZZA}
         />
-        <SortPopup sortItemsPizza={sortItemsPizza} />
+        <SortPopup sortItemsPizza={SORT_ITEMS_PIZZA} />
       </div>
-      <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">
-        {pizzaItems &&
-          pizzaItems.map((pizzaItem) => (
-            <PizzaItem
-              key={`${pizzaItem.name}_ ${pizzaItem.id}`}
-              isLoaded={isLoaded}
-              {...pizzaItem}
-            />
-          ))}
-      </div>
+      <h2 className="content__title">{t(`${T_PREFIX} - ${HEADING}`)}</h2>
+      <PizzaItems pizzaItems={pizzaItems} isLoaded={isLoaded} />
     </div>
   );
 };

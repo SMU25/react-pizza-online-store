@@ -1,7 +1,6 @@
 @import "fonts";
 @import "variables";
 @import "libs/normalize";
-
 @import "components/all";
 
 body {
@@ -28,7 +27,19 @@ body {
   &__items {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    margin: 0 auto;
+
+    @media (max-width: 1478px) {
+      max-width: 930px;
+    }
+
+    @media (max-width: 1134px) {
+      max-width: 620px;
+    }
+
+    @media (max-width: 789px) {
+      max-width: 310px;
+    }
   }
 
   &__top {
