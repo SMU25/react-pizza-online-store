@@ -1,6 +1,6 @@
 const initialState = {
   category: "all",
-  sortBy: "rating",
+  sortBy: { type: "rating", order: "desc" },
 };
 
 export const filters = (state = initialState, action) => {

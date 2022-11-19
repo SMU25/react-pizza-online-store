@@ -46,7 +46,7 @@ export const SortPopup = memo(
     //CHANGE
 
     const activeItem = useMemo(
-      () => sortItemsPizza.find(({ type }) => type === sortBy),
+      () => sortItemsPizza.find(({ type }) => type === sortBy.type),
       [sortBy, sortItemsPizza]
     );
 
