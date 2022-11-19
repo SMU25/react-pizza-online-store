@@ -1,18 +1,28 @@
-import { ACTION_TYPE_NAME_PIZZA_ITEMS } from "redux/actions/pizzaItems";
+import {
+  ACTION_TYPE_NAME_IS_LOADING,
+  ACTION_TYPE_NAME_PIZZA_ITEMS,
+} from "redux/actions/pizzaItems";
 
 const initialState = {
   items: [],
-  isLoaded: false,
+  isLoading: true,
 };
 
 export const pizzaItems = (state = initialState, action) => {
-  if (action.type === ACTION_TYPE_NAME_PIZZA_ITEMS) {
-    return {
-      ...state,
-      items: action.payload,
-      isLoaded: true,
-    };
-  }
+  switch (action.type) {
+    case ACTION_TYPE_NAME_IS_LOADING:
+      return {
+        ...state,
+        isLoading: action.payload,
+      };
 
-  return state;
+    case ACTION_TYPE_NAME_PIZZA_ITEMS:
+      return {
+        ...state,
+        items: action.payload,
+      };
+
+    default:
+      return state;
+  }
 };

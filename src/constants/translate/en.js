@@ -16,6 +16,8 @@ export const EN = {
   "sort-popup - price": "Price",
   "sort-popup - alphabet": "Alphabet",
 
+  "pizza-items - no-data": "Data is not loaded or is missing",
+
   "pizza-card - pepperoni-fresh": "Pepperoni Fresh with pepper",
   "pizza-card - cheese": "Cheese",
   "pizza-card - barbecue-chicken": "Barbecue chicken",
@@ -34,5 +36,10 @@ export const EN = {
 
   "not-found - title": "Error 404 - Page not found.",
 
-  "home - title": "All pizzas",
+  "home - all": "All pizzas",
+  "home - meat": "Meat pizzas",
+  "home - vegetarian": "Vegetarian pizzas",
+  "home - grill": "Grill pizzas",
+  "home - spicy": "Spicy pizzas",
+  "home - closed": "Closed pizzas",
 };

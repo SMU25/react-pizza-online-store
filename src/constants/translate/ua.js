@@ -14,7 +14,9 @@ export const UA = {
   "sort-popup - sort-by": "Сортувати за:",
   "sort-popup - popular": "Популярністю",
   "sort-popup - price": "Ціною",
-  "sort-popup - alphabet": "Алфавітом",
+  "sort-popup - alphabet": "Алфавітом (Eng)",
+
+  "pizza-items - no-data": "Дані не завантажено або вони відсутні",
 
   "pizza-card - pepperoni-fresh": "Пепероні Фреш з перцем",
   "pizza-card - cheese": "Сирна",
@@ -34,5 +36,10 @@ export const UA = {
 
   "not-found - title": "Помилка 404 - Сторінку не знайдено.",
 
-  "home - title": "Усі піци",
+  "home - all": "Усі піци",
+  "home - meat": "М'ясні піци",
+  "home - vegetarian": "Вегетаріанські піци",
+  "home - grill": "Гриль піци",
+  "home - spicy": "Гострі піци",
+  "home - closed": "Закриті піци",
 };

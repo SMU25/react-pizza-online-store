@@ -27,6 +27,7 @@
     }
 
     .active {
+      position: relative;
       color: $black;
       cursor: default;
       pointer-events: none;

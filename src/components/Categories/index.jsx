@@ -1,18 +1,9 @@
-import React, { useState, memo } from "react";
+import React, { memo } from "react";
 import cn from "classnames";
 import { CategoryItem } from "./CategoryItem";
 
-export const Categories = memo(({ onSelectCategory, categoriesPizza }) => {
-  const [activeCategory, setActiveCategory] = useState(null);
-  //CHANGE delete state
-
-  const setFilterBy = (name) => {
-    setActiveCategory(name);
-    onSelectCategory(name);
-    //CHANGE
-  };
-
-  return (
+export const Categories = memo(
+  ({ activeCategory, onSelectCategory, categoriesPizza }) => (
     <div className="categories">
       <ul>
         {categoriesPizza.map(({ id, name }) => (
@@ -20,10 +11,10 @@ export const Categories = memo(({ onSelectCategory, categoriesPizza }) => {
             key={id}
             className={cn({ active: activeCategory === name })}
             name={name}
-            setFilterBy={setFilterBy}
+            setFilterBy={onSelectCategory}
           />
         ))}
       </ul>
     </div>
-  );
-});
+  )
+);
