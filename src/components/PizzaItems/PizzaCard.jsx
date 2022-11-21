@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import cn from "classnames";
 import { useTranslation } from "react-i18next";
 import PropTypes from "prop-types";
@@ -13,18 +13,22 @@ const PRICES_SIZES = { 26: 0, 30: 10, 40: 50 };
 //спочатку розмір 30 * 100 , а потім ділю на ціну(150) 3000/150 = 115%
 // далі 15% * ціну(150) і ділю на розмір, а далі доплюсовую отримане число до ціни
 
+const IMG_ALT_TEXT = "Pizza";
+
 const T_PREFIX = "pizza-card";
 const CENTIMETERS = "centimeters";
 const PRICE = "price";
 const ADD_BUTTON_NAME = "add";
 
 export const PizzaCard = ({
-  // id,
+  id,
   imageUrl,
+  onAddToCart,
   name = "No name",
+  addedCount = null,
+  price = 0,
   types = [],
   sizes = [],
-  price = "unknown",
   // category,
   // rating,
 }) => {
@@ -32,6 +36,19 @@ export const PizzaCard = ({
 
   const [isActiveType, setIsActiveType] = useState(PIZZA_TYPES[types[0]]);
   const [isActiveSize, setIsActiveSize] = useState(sizes[0]);
+
+  const onClickAddToCart = useCallback(() => {
+    const pizzaObj = {
+      id,
+      name,
+      imageUrl,
+      price,
+      type: isActiveType,
+      size: isActiveSize,
+    };
+
+    onAddToCart(pizzaObj);
+  }, [id, name, imageUrl, price, isActiveType, isActiveSize, onAddToCart]);
 
   //CHANGE змінити текст в константи і переводи додати
   //Pizza card винести в папку та розділити на компоненти типи, розміри (один компонент на 2 параметри назва PizzaCardParameter)
@@ -42,9 +59,10 @@ export const PizzaCard = ({
   // юзати компоненти для перекладу
   // щоббув прайс в баксах
   // В стилі додати Capitalize для усіх елементів
+
   return (
     <div className="pizza-block">
-      <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+      <img className="pizza-block__image" src={imageUrl} alt={IMG_ALT_TEXT} />
       <h4 className="pizza-block__title">{t(`${T_PREFIX} - ${name}`)}</h4>
       <div className="pizza-block__selector">
         <ul>
@@ -75,15 +93,19 @@ export const PizzaCard = ({
             </li>
           ))}
         </ul>
+
+        {/* <ul>
+          <li name="" isActiveItem="name" items={[]}></li>
+        </ul> */}
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">
           {t(`${T_PREFIX} - ${PRICE}`, { price })}
         </div>
-        <Button className={"button--outline button--add"}>
+        <Button className="button--add" onClick={onClickAddToCart} outline>
           <Plus />
           <span>{t(`${T_PREFIX} - ${ADD_BUTTON_NAME}`)}</span>
-          <i>2</i>
+          {addedCount && <i>{addedCount}</i>}
         </Button>
       </div>
     </div>

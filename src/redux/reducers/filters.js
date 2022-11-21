@@ -1,20 +1,27 @@
+import { ACTION_TYPES } from "redux/actions/filters";
+
 const initialState = {
   category: "all",
   sortBy: { type: "rating", order: "desc" },
 };
 
-export const filters = (state = initialState, action) => {
-  if (action.type === "SET_SORT_BY") {
-    return {
-      ...state,
-      sortBy: action.payload,
-    };
+export const filtersReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case ACTION_TYPES.SET_SORT_BY:
+      return {
+        ...state,
+        sortBy: action.payload,
+      };
+
+    case ACTION_TYPES.SET_CATEGORY:
+      return {
+        ...state,
+        category: action.payload,
+      };
+
+    default:
+      return state;
   }
-  if (action.type === "SET_CATEGORY") {
-    return {
-      ...state,
-      category: action.payload,
-    };
-  }
-  return state;
 };
+
+export default filtersReducer;

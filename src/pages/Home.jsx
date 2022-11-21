@@ -11,6 +11,8 @@ import { SORT_ITEMS_PIZZA } from "constants/sortItems";
 const T_PREFIX = "home";
 const ACTIVE_CATEGORY_ACTION_KEY = "category";
 
+//CHANGE add default export
+
 export const Home = () => {
   const { t } = useTranslation();
 
@@ -22,6 +24,7 @@ export const Home = () => {
     ({ pizzaItems }) => pizzaItems
   );
   //CHANGE винести в селектори
+
   const { category, sortBy } = useSelector(({ filters }) => filters);
   //CHANGE винести в селектори
 
@@ -44,6 +47,11 @@ export const Home = () => {
     (sortItem) => dispatch(setSortBy(sortItem)),
     [dispatch]
   );
+
+  useEffect(() => {
+    if (!queryParams.get(ACTIVE_CATEGORY_ACTION_KEY))
+      setQueryParams(`${ACTIVE_CATEGORY_ACTION_KEY}=${activeCategory}`);
+  }, [activeCategory, queryParams, setQueryParams]);
 
   return (
     <div className="container">

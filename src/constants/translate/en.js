@@ -1,5 +1,5 @@
 export const EN = {
-  "header - price": "{{price}} uah",
+  "header - total-price": "{{totalPrice}} ₴",
 
   "logo - title": "React Pizza",
   "logo - description": "the most delicious pizza in the universe",
@@ -19,7 +19,7 @@ export const EN = {
   "pizza-items - no-data": "Data is not loaded or is missing",
 
   "pizza-card - pepperoni-fresh": "Pepperoni Fresh with pepper",
-  "pizza-card - cheese": "Cheese",
+  "pizza-card - cheese": "Cheese 🌱👶",
   "pizza-card - barbecue-chicken": "Barbecue chicken",
   "pizza-card - sweet-sour-chicken": "Sweet and sour chicken",
   "pizza-card - cheeseburger-pizza": "Cheeseburger-pizza",
@@ -31,7 +31,7 @@ export const EN = {
   "pizza-card - thin": "thin",
   "pizza-card - traditional": "traditional",
   "pizza-card - centimeters": "cm.",
-  "pizza-card - price": "from {{price}} uah",
+  "pizza-card - price": "from {{price}} ₴",
   "pizza-card - add": "Add",
 
   "not-found - title": "Error 404 - Page not found.",
@@ -42,4 +42,6 @@ export const EN = {
   "home - grill": "Grill pizzas",
   "home - spicy": "Spicy pizzas",
   "home - closed": "Closed pizzas",
+
+  "cart - title": "Cart",
 };

@@ -1,5 +1,5 @@
 export const UA = {
-  "header - price": "{{price}} грн.",
+  "header - total-price": "{{totalPrice}} ₴",
 
   "logo - title": "React Pizza",
   "logo - description": "найсмачніша піца у Всесвіті",
@@ -19,7 +19,7 @@ export const UA = {
   "pizza-items - no-data": "Дані не завантажено або вони відсутні",
 
   "pizza-card - pepperoni-fresh": "Пепероні Фреш з перцем",
-  "pizza-card - cheese": "Сирна",
+  "pizza-card - cheese": "Сирна 🌱👶",
   "pizza-card - barbecue-chicken": "Курча барбекю",
   "pizza-card - sweet-sour-chicken": "Кисло-солодке курча",
   "pizza-card - cheeseburger-pizza": "Чізбургер-піцца",
@@ -31,7 +31,7 @@ export const UA = {
   "pizza-card - thin": "тонка",
   "pizza-card - traditional": "традиційна",
   "pizza-card - centimeters": "см.",
-  "pizza-card - price": "від {{price}} грн.",
+  "pizza-card - price": "від {{price}} ₴",
   "pizza-card - add": "Додати",
 
   "not-found - title": "Помилка 404 - Сторінку не знайдено.",
@@ -42,4 +42,7 @@ export const UA = {
   "home - grill": "Гриль піци",
   "home - spicy": "Гострі піци",
   "home - closed": "Закриті піци",
+
+  "cart - title": "Корзина",
+  "cart - totalPrice": "{{totalPrice}} ₴",
 };

@@ -25,18 +25,14 @@ export const SortPopup = memo(
       []
     );
 
-    const setSortBy = useCallback(
-      (type) => {
-        onSelectSortBy(type);
-        setIsOpenPopup(false);
-      },
-      [onSelectSortBy]
-    );
-
     const sortRef = useRef(null);
 
     const handleOutsideClick = (e) => {
-      if (!e.path.includes(sortRef.current)) setIsOpenPopup(false);
+      const path =
+        e.path ||
+        (e.composedPath && e.composedPath()) ||
+        e.composedPath(e.target);
+      if (!path.includes(sortRef.current)) setIsOpenPopup(false);
     };
     //CHANGE
 
@@ -48,6 +44,14 @@ export const SortPopup = memo(
     const activeItem = useMemo(
       () => sortItemsPizza.find(({ type }) => type === sortBy.type),
       [sortBy, sortItemsPizza]
+    );
+
+    const setSortBy = useCallback(
+      (sortItem) => {
+        if (sortItem.type !== activeItem.type) onSelectSortBy(sortItem);
+        setIsOpenPopup(false);
+      },
+      [activeItem, onSelectSortBy]
     );
 
     return (

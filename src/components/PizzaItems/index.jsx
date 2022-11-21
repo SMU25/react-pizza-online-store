@@ -1,5 +1,7 @@
-import React, { memo, useMemo } from "react";
+import React, { memo, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { useSelector, useDispatch } from "react-redux";
+import { addPizzaToCart } from "redux/actions/cart";
 import { PizzaCard } from "./PizzaCard";
 import { LoadingPizzaCard } from "./LoadingPizzaCard";
 
@@ -11,6 +13,16 @@ const NO_DATA = "no-data";
 export const PizzaItems = memo(({ isLoading, pizzaItems }) => {
   const { t } = useTranslation();
 
+  const dispatch = useDispatch();
+
+  const cartItems = useSelector(({ cart }) => cart.items);
+  //CHANGE винести в селектори
+
+  const onAddToCart = useCallback(
+    (pizzaObj) => dispatch(addPizzaToCart(pizzaObj)),
+    [dispatch]
+  );
+
   const renderedPizzaItems = useMemo(() => {
     if (isLoading) {
       return ARRAY_EMPTY_ELEMENTS.map((_, index) => (
@@ -18,12 +30,17 @@ export const PizzaItems = memo(({ isLoading, pizzaItems }) => {
       ));
     } else if (pizzaItems?.length) {
       return pizzaItems.map((pizzaItem) => (
-        <PizzaCard key={`${pizzaItem.name}_${pizzaItem.id}`} {...pizzaItem} />
+        <PizzaCard
+          key={`${pizzaItem.name}_${pizzaItem.id}`}
+          onAddToCart={onAddToCart}
+          addedCount={cartItems[pizzaItem.id]?.length}
+          {...pizzaItem}
+        />
       ));
     } else {
       return <h2>{t(`${T_PREFIX} - ${NO_DATA}`)}</h2>;
     }
-  }, [isLoading, pizzaItems, t]);
+  }, [isLoading, pizzaItems, cartItems, onAddToCart, t]);
 
   return <div className="content__items">{renderedPizzaItems}</div>;
 });

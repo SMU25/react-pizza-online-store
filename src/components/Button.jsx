@@ -1,6 +1,11 @@
 import React from "react";
 import cn from "classnames";
 
-export const Button = ({ className, children }) => {
-  return <button className={cn("button", className)}>{children}</button>;
-};
+export const Button = ({ children, className, outline, onClick }) => (
+  <button
+    className={cn("button", className, { "button--outline": outline })}
+    onClick={onClick}
+  >
+    {children}
+  </button>
+);
