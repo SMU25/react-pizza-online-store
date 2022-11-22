@@ -1,15 +1,10 @@
 import React from "react";
+import { PizzaCartItem } from "./PizzaCartItem";
 
-import { PizzaItem } from "./PizzaItem";
-
-const PizzaCartItems = ({ cartItems }) => {
-  return (
-    <div className="content__items">
-      {Object.entries(cartItems).map(([id, items]) => (
-        <PizzaItem key={id} items={items} />
-      ))}
-    </div>
-  );
-};
-
-export default PizzaCartItems;
+export const PizzaCartItems = ({ cartItems }) => (
+  <div className="content__items">
+    {Object.entries(cartItems).map(([id, items]) => (
+      <PizzaCartItem key={id} id={id} items={items} />
+    ))}
+  </div>
+);

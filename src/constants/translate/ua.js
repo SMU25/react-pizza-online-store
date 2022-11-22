@@ -30,8 +30,9 @@ export const UA = {
   "pizza-card - vegetables-mushrooms": "Овочі та гриби 🌱",
   "pizza-card - thin": "тонка",
   "pizza-card - traditional": "традиційна",
-  "pizza-card - centimeters": "см.",
+  "pizza-card - size": "{{sizeName}} см.",
   "pizza-card - price": "від {{price}} ₴",
+  "pizza-card - total-price": "{{totalPrice}} ₴",
   "pizza-card - add": "Додати",
 
   "not-found - title": "Помилка 404 - Сторінку не знайдено.",
@@ -44,5 +45,9 @@ export const UA = {
   "home - closed": "Закриті піци",
 
   "cart - title": "Корзина",
-  "cart - totalPrice": "{{totalPrice}} ₴",
+  "cart - total-price": "Сума замовлення: <strong>{{totalPrice}} ₴</strong>",
+  "cart - total-count": "Усього піц: <strong>{{totalCount}} шт.</strong>",
+  "cart - clear-cart": "Очистити корзину",
+  "cart - go-back": "Повернутися назад",
+  "cart - pay": "Замовити",
 };

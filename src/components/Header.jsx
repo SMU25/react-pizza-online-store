@@ -2,17 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { Button } from "components/Button";
 import { LANGUAGES } from "constants/languages";
 import { PATHNAMES } from "constants/routes";
 import { ReactComponent as Cart } from "assets/icons/cart.svg";
-import { LanguageChooser } from "./LanguageChooser";
-import { Logo } from "./Logo";
-
-const T_PREFIX = "header";
-const TOTAL_PRICE_TEXT = "total-price";
+import { LanguageChooser, Logo, Button } from ".";
 
 const LOGO_SIZE_WIDTH = 38;
+
+const T_PREFIX = "header";
+const TOTAL_PRICE_CART = "total-price";
 
 export const Header = () => {
   const { t } = useTranslation();
@@ -28,7 +26,7 @@ export const Header = () => {
           <Link to={PATHNAMES.CART}>
             <Button className="button--cart">
               <span>
-                {t(`${T_PREFIX} - ${TOTAL_PRICE_TEXT}`, { totalPrice })}
+                {t(`${T_PREFIX} - ${TOTAL_PRICE_CART}`, { totalPrice })}
               </span>
               <div className="button__delimiter"></div>
               <Cart />

@@ -1,9 +1,18 @@
 import React from "react";
 import cn from "classnames";
 
-export const Button = ({ children, className, outline, onClick }) => (
+export const Button = ({
+  children,
+  className,
+  outline,
+  onClick,
+  disabledDefaultStyle = false,
+}) => (
   <button
-    className={cn("button", className, { "button--outline": outline })}
+    className={cn(className, {
+      button: !disabledDefaultStyle,
+      "button--outline": outline,
+    })}
     onClick={onClick}
   >
     {children}

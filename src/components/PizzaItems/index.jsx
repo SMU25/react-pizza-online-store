@@ -8,7 +8,7 @@ import { LoadingPizzaCard } from "./LoadingPizzaCard";
 const ARRAY_EMPTY_ELEMENTS = Array.from({ length: 12 });
 
 const T_PREFIX = "pizza-items";
-const NO_DATA = "no-data";
+const NO_DATA_TEXT = "no-data";
 
 export const PizzaItems = memo(({ isLoading, pizzaItems }) => {
   const { t } = useTranslation();
@@ -38,7 +38,7 @@ export const PizzaItems = memo(({ isLoading, pizzaItems }) => {
         />
       ));
     } else {
-      return <h2>{t(`${T_PREFIX} - ${NO_DATA}`)}</h2>;
+      return <h2>{t(`${T_PREFIX} - ${NO_DATA_TEXT}`)}</h2>;
     }
   }, [isLoading, pizzaItems, cartItems, onAddToCart, t]);
 

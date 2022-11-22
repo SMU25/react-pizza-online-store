@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from "react";
 import cn from "classnames";
 import { useTranslation } from "react-i18next";
-import PropTypes from "prop-types";
 import { Button } from "components/Button";
 import { ReactComponent as Plus } from "assets/icons/plus.svg";
 
@@ -16,8 +15,8 @@ const PRICES_SIZES = { 26: 0, 30: 10, 40: 50 };
 const IMG_ALT_TEXT = "Pizza";
 
 const T_PREFIX = "pizza-card";
-const CENTIMETERS = "centimeters";
-const PRICE = "price";
+const SIZE_PIZZA_PARAM = "size";
+const PRICE_PIZZA = "price";
 const ADD_BUTTON_NAME = "add";
 
 export const PizzaCard = ({
@@ -29,8 +28,6 @@ export const PizzaCard = ({
   price = 0,
   types = [],
   sizes = [],
-  // category,
-  // rating,
 }) => {
   const { t } = useTranslation();
 
@@ -59,6 +56,7 @@ export const PizzaCard = ({
   // юзати компоненти для перекладу
   // щоббув прайс в баксах
   // В стилі додати Capitalize для усіх елементів
+  //перейменувати назву коснтант і т префіксів
 
   return (
     <div className="pizza-block">
@@ -89,7 +87,7 @@ export const PizzaCard = ({
               })}
               onClick={() => setIsActiveSize(sizeName)}
             >
-              {sizeName} {t(`${T_PREFIX} - ${CENTIMETERS}`)}
+              {t(`${T_PREFIX} - ${SIZE_PIZZA_PARAM}`, { sizeName })}
             </li>
           ))}
         </ul>
@@ -100,7 +98,7 @@ export const PizzaCard = ({
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">
-          {t(`${T_PREFIX} - ${PRICE}`, { price })}
+          {t(`${T_PREFIX} - ${PRICE_PIZZA}`, { price })}
         </div>
         <Button className="button--add" onClick={onClickAddToCart} outline>
           <Plus />
@@ -110,12 +108,4 @@ export const PizzaCard = ({
       </div>
     </div>
   );
-};
-
-PizzaCard.propTypes = {
-  name: PropTypes.string,
-  imageUrl: PropTypes.string,
-  price: PropTypes.number,
-  types: PropTypes.arrayOf(PropTypes.number),
-  sizes: PropTypes.arrayOf(PropTypes.number),
 };

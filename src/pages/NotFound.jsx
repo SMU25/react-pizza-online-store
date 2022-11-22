@@ -2,7 +2,6 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 const T_PREFIX = "not-found";
-
 const HEADING = "title";
 
 export const NotFound = () => {

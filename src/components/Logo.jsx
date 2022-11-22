@@ -5,7 +5,6 @@ import { PATHNAMES } from "constants/routes";
 import { ReactComponent as PizzaLogo } from "assets/icons/pizza-logo.svg";
 
 const T_PREFIX = "logo";
-
 const HEADING = "title";
 const DESCRIPTION = "description";
 

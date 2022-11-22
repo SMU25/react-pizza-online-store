@@ -30,8 +30,9 @@ export const EN = {
   "pizza-card - vegetables-mushrooms": "Vegetables and mushrooms 🌱",
   "pizza-card - thin": "thin",
   "pizza-card - traditional": "traditional",
-  "pizza-card - centimeters": "cm.",
+  "pizza-card - size": "{{sizeName}} cm.",
   "pizza-card - price": "from {{price}} ₴",
+  "pizza-card - total-price": "{{totalPrice}} ₴",
   "pizza-card - add": "Add",
 
   "not-found - title": "Error 404 - Page not found.",
@@ -44,4 +45,9 @@ export const EN = {
   "home - closed": "Closed pizzas",
 
   "cart - title": "Cart",
+  "cart - total-price": "Total price: <strong>{{totalPrice}} ₴</strong>",
+  "cart - total-count": "Total pizzas: <strong>{{totalCount}} pcs.</strong>",
+  "cart - clear-cart": "Clear cart",
+  "cart - go-back": "Go back",
+  "cart - pay": "Pay",
 };
