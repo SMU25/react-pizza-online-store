@@ -18,23 +18,39 @@ const HEADING = "title";
 const TOTAL_COUNT_CART = "total-count";
 const TOTAL_PRICE_CART = "total-price";
 const CLEAR_CART_BUTTON_NAME = "clear-cart";
-const MODAL_WINDOW_HEADING = "modal-window-title";
-const MODAL_WINDOW_TEXT = "modal-window-text";
-const ACCEPT_BUTTON_NAME = "accept";
+const CLEAR_MODAL_WINDOW_HEADING = "clear-modal-title";
+const CLEAR_MODAL_WINDOW_TEXT = "clear-modal-text";
+const ORDER_MODAL_WINDOW_HEADING = "order-modal-title";
+const ORDER_MODAL_WINDOW_TEXT = "order-modal-text";
+const CONFIRM_BUTTON_NAME = "confirm";
 const DECLINE_BUTTON_NAME = "decline";
-const PAY_BUTTON_NAME = "pay";
+const BUY_BUTTON_NAME = "buy";
 
 export const Cart = () => {
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
 
-  const { closeModal, openModal, isOpenModal } = useModal();
+  const {
+    closeModal: closeClearModal,
+    openModal: openClearModal,
+    isOpenModal: isOpenClearModal,
+  } = useModal();
+
+  const {
+    closeModal: closeOrderModal,
+    openModal: openOrderModal,
+    isOpenModal: isOpenOrderModal,
+  } = useModal();
 
   const onClearCart = useCallback(() => {
     dispatch(clearCart());
-    closeModal();
-  }, [dispatch, closeModal]);
+    closeClearModal();
+  }, [dispatch, closeClearModal]);
+
+  const onClickOrder = useCallback(() => {
+    openOrderModal();
+  }, [openOrderModal]);
 
   const totalPrice = useSelector(selectTotalPrice);
   const totalCount = useSelector(selectTotalCount);
@@ -54,12 +70,12 @@ export const Cart = () => {
 
   const modalWindowButtons = [
     {
-      name: t(`${T_PREFIX} - ${ACCEPT_BUTTON_NAME}`),
+      name: t(`${T_PREFIX} - ${CONFIRM_BUTTON_NAME}`),
       onClick: onClearCart,
     },
     {
       name: t(`${T_PREFIX} - ${DECLINE_BUTTON_NAME}`),
-      onClick: closeModal,
+      onClick: closeClearModal,
       outline: true,
       className: "decline-button",
     },
@@ -78,7 +94,7 @@ export const Cart = () => {
             </h2>
             <Button
               className="cart__clear"
-              onClick={openModal}
+              onClick={openClearModal}
               disabledDefaultStyle
             >
               <Trash />
@@ -101,23 +117,23 @@ export const Cart = () => {
                   <span>{t(`${T_PREFIX} - ${GO_BACK_BUTTON_NAME}`)}</span>
                 </Button>
               </Link>
-              <Button className="button pay-btn">
-                <span>{t(`${T_PREFIX} - ${PAY_BUTTON_NAME}`)}</span>
+              <Button className="button buy-btn" onClick={onClickOrder}>
+                <span>{t(`${T_PREFIX} - ${BUY_BUTTON_NAME}`)}</span>
               </Button>
             </div>
           </div>
         </div>
       );
     }
-  }, [cartDetails, totalCount, openModal, t]);
+  }, [totalCount, t, openClearModal, cartDetails, onClickOrder]);
 
   return (
     <div className="container container--cart">
       <ModalWindow
-        isOpen={isOpenModal}
-        onClose={closeModal}
-        title={t(`${T_PREFIX} - ${MODAL_WINDOW_HEADING}`)}
-        text={t(`${T_PREFIX} - ${MODAL_WINDOW_TEXT}`)}
+        isOpen={isOpenClearModal}
+        onClose={closeClearModal}
+        title={t(`${T_PREFIX} - ${CLEAR_MODAL_WINDOW_HEADING}`)}
+        text={t(`${T_PREFIX} - ${CLEAR_MODAL_WINDOW_TEXT}`)}
       >
         {modalWindowButtons.map(({ name, ...button }) => (
           <Button key={name} {...button}>
@@ -125,6 +141,12 @@ export const Cart = () => {
           </Button>
         ))}
       </ModalWindow>
+      <ModalWindow
+        isOpen={isOpenOrderModal}
+        onClose={closeOrderModal}
+        title={t(`${T_PREFIX} - ${ORDER_MODAL_WINDOW_HEADING}`)}
+        text={t(`${T_PREFIX} - ${ORDER_MODAL_WINDOW_TEXT}`)}
+      />
       {cartState}
     </div>
   );

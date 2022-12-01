@@ -22,6 +22,7 @@
     span {
       color: $orange;
       border-bottom: 1px dashed $orange;
+      text-transform: capitalize;
       cursor: pointer;
     }
   }
@@ -41,6 +42,7 @@
       overflow: hidden;
       li {
         padding: 12px 20px;
+        text-transform: capitalize;
         cursor: pointer;
 
         &.active,

@@ -48,12 +48,15 @@ export const UA = {
   "cart - total-price": "Сума замовлення: <strong>{{totalPrice}} ₴</strong>",
   "cart - total-count": "Усього піц: <strong>{{totalCount}} шт.</strong>",
   "cart - clear-cart": "Очистити корзину",
-  "cart - modal-window-title": "Очищення корзини",
-  "cart - modal-window-text": "Ви дійсно хочете очистити корзину?",
-  "cart - accept": "Підтвердити",
+  "cart - clear-modal-title": "Очищення корзини",
+  "cart - clear-modal-text": "Ви дійсно хочете очистити корзину?",
+  "cart - order-modal-title": "Замовлення",
+  "cart - order-modal-text": "Ваше замовлення прийняте! 😋",
+
+  "cart - confirm": "Підтвердити",
   "cart - decline": "Відмінити",
   "cart - go-back": "Повернутися назад",
-  "cart - pay": "Замовити",
+  "cart - buy": "Замовити",
 
   "empty-cart - title": "Корзина порожня 😕",
   "empty-cart - text": `

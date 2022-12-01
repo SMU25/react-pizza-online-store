@@ -41,33 +41,72 @@ const cartReducer = (state = initialState, action) => {
       };
     }
 
-    case ACTION_TYPES.MINUS_CART_ITEM: {
-      // const newItems = state.items[action.payload].items;
-      const newItems = state.items;
+    // case ACTION_TYPES.MINUS_CART_ITEM: {
+    //   // const newItems = state.items[action.payload].items;
+    //   const newItems = state.items;
 
-      if (state.items[action.payload].items.length > 1) {
-        state.items[action.payload].items.pop();
-      } else {
-        state.items[action.payload].items = [];
+    //   if (state.items[action.payload].items.length > 1) {
+    //     state.items[action.payload].items.pop();
+    //   } else {
+    //     state.items[action.payload].items = [];
+    //   }
+
+    //   return {
+    //     items: newItems,
+    //     ...state,
+    //   };
+    // }
+
+    case ACTION_TYPES.MINUS_CART_ITEM: {
+      const allPizzasById = state.items[action.payload].items;
+
+      if (allPizzasById.length > 1) {
+        allPizzasById.pop();
       }
 
+      const newItems = {
+        ...state.items,
+        [action.payload]: {
+          items: allPizzasById,
+          totalPrice: getTotalPrice(allPizzasById),
+          totalCount: allPizzasById.length,
+        },
+      };
+
+      const totalPrice = getTotalSumObj(newItems, DATA_KEYS.TOTAL_PRICE);
+
+      const totalCount = getTotalSumObj(newItems, DATA_KEYS.TOTAL_COUNT);
+
       return {
-        items: newItems,
         ...state,
+        items: newItems,
+        totalPrice: totalPrice,
+        totalCount: totalCount,
       };
     }
 
     case ACTION_TYPES.PLUS_CART_ITEM: {
+      const prevPizzasById = state.items[action.payload].items;
+      const allPizzasById = [...prevPizzasById, prevPizzasById[0]];
+
+      const newItems = {
+        ...state.items,
+        [action.payload]: {
+          items: allPizzasById,
+          totalPrice: getTotalPrice(allPizzasById),
+          totalCount: allPizzasById.length,
+        },
+      };
+
+      const totalPrice = getTotalSumObj(newItems, DATA_KEYS.TOTAL_PRICE);
+
+      const totalCount = getTotalSumObj(newItems, DATA_KEYS.TOTAL_COUNT);
+
       return {
         ...state,
-        items: {
-          [action.payload]: {
-            items: [
-              ...state.items[action.payload].items,
-              state.items[action.payload].items[0],
-            ],
-          },
-        },
+        items: newItems,
+        totalPrice: totalPrice,
+        totalCount: totalCount,
       };
     }
 

@@ -1,8 +1,6 @@
 import React from "react";
 import cn from "classnames";
 
-const NUMBER_TYPE = "number";
-
 export const PizzaParameter = ({
   children,
   param,

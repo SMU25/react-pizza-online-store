@@ -10,6 +10,7 @@
       border-radius: 30px;
       margin-right: 10px;
       font-weight: bold;
+      text-transform: capitalize;
       cursor: pointer;
       transition: background-color 0.1s ease-in-out;
       @include noselect();
