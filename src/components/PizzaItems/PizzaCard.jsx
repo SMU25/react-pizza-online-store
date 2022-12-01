@@ -24,7 +24,7 @@ export const PizzaCard = ({
   imageUrl,
   onAddToCart,
   name = "No name",
-  addedCount = null,
+  totalCountAdded = null,
   price = 0,
   types = [],
   sizes = [],
@@ -103,7 +103,7 @@ export const PizzaCard = ({
         <Button className="button--add" onClick={onClickAddToCart} outline>
           <Plus />
           <span>{t(`${T_PREFIX} - ${ADD_BUTTON_NAME}`)}</span>
-          {addedCount && <i>{addedCount}</i>}
+          {totalCountAdded && <i>{totalCountAdded}</i>}
         </Button>
       </div>
     </div>

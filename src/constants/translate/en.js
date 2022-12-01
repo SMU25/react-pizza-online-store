@@ -48,6 +48,10 @@ export const EN = {
   "cart - total-price": "Total price: <strong>{{totalPrice}} ₴</strong>",
   "cart - total-count": "Total pizzas: <strong>{{totalCount}} pcs.</strong>",
   "cart - clear-cart": "Clear cart",
+  "cart - modal-window-title": "Cleaning the cart",
+  "cart - modal-window-text": "Do you want to empty the cart?",
+  "cart - accept": "Accept",
+  "cart - decline": "Decline",
   "cart - go-back": "Go back",
   "cart - pay": "Pay",
 };

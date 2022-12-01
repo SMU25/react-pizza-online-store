@@ -1,5 +1,4 @@
 import axios from "axios";
-import { API_URL_PIZZA_ITEMS } from "constants/urls";
 
 export const ACTION_TYPES = {
   SET_IS_LOADING: "SET_IS_LOADING",
@@ -25,9 +24,8 @@ export const getPizzaItems =
       dispatch(setIsLoading(true));
 
       const category = filterBy !== CATEGORY_NAME_ALL ? filterBy : "";
-      const { data } = await axios(
-        `${API_URL_PIZZA_ITEMS}?category_like=${category}&_sort=${type}&_order=${order}`
-      );
+      const url = `/pizzaItems?category_like=${category}&_sort=${type}&_order=${order}`;
+      const { data } = await axios(url);
 
       dispatch(setPizzaItems(data));
     } catch (error) {

@@ -62,6 +62,11 @@ body {
   }
 }
 
+.decline-button {
+  color: #b6b6b6;
+  border-color: #ddd;
+}
+
 .cart {
   &__top {
     display: flex;
@@ -323,4 +328,10 @@ body {
       font-size: 18px;
     }
   }
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

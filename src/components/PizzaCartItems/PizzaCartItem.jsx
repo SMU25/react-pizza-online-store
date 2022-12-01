@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "components";
 import { ReactComponent as Minus } from "assets/icons/minus.svg";
@@ -11,10 +11,33 @@ const T_PREFIX = "pizza-card";
 const TOTAL_PRICE_PIZZA = "total-price";
 const SIZE_PIZZA_PARAM = "size";
 
-export const PizzaCartItem = ({ id, items }) => {
+export const PizzaCartItem = ({
+  id,
+  items,
+  totalPrice,
+  totalCount,
+  onMinusCartItem,
+  onPlusCartItem,
+  onRemoveCartItem,
+}) => {
   const { t } = useTranslation();
 
   const { name, imageUrl, type, size } = items[0];
+
+  const handleMinusItem = useCallback(
+    () => onMinusCartItem(id),
+    [id, onMinusCartItem]
+  );
+
+  const handlePlusItem = useCallback(
+    () => onPlusCartItem(id),
+    [id, onPlusCartItem]
+  );
+
+  const handleRemoveItem = useCallback(
+    () => onRemoveCartItem(id),
+    [id, onRemoveCartItem]
+  );
 
   // const pizzaCount = useMemo(() => {
   //   const getCountPizzas = (type, size) =>
@@ -50,14 +73,7 @@ export const PizzaCartItem = ({ id, items }) => {
   ${t(`${T_PREFIX} - ${type}`)},
   ${t(`${T_PREFIX} - ${SIZE_PIZZA_PARAM}`, { sizeName: size })}`;
 
-  const addedCount = items.length;
-
-  const totalPrice = useMemo(
-    () => items.reduce((sum, item) => sum + item.price, 0),
-    [items]
-  );
-
-  //CHANGE зробити общі ключі і переводи
+  //CHANGE
   //пофіксити, щоб відображало кілька типів піц ,які замовляються і їх кількість
   // на даний омент ,якщо додати току і 26см(наприклад), то після додавання іншого типу, зміни не відобраються
 
@@ -71,11 +87,19 @@ export const PizzaCartItem = ({ id, items }) => {
         <p>{pizzaParamsInfo}</p>
       </div>
       <div className="cart__item-count">
-        <Button className="button--circle cart__item-count-minus" outline>
+        <Button
+          className="button--circle cart__item-count-minus"
+          onClick={handleMinusItem}
+          outline
+        >
           <Minus />
         </Button>
-        <b>{addedCount}</b>
-        <Button className="button--circle cart__item-count-plus" outline>
+        <b>{totalCount}</b>
+        <Button
+          className="button--circle cart__item-count-plus"
+          onClick={handlePlusItem}
+          outline
+        >
           <Plus />
         </Button>
       </div>
@@ -83,11 +107,7 @@ export const PizzaCartItem = ({ id, items }) => {
         <b>{t(`${T_PREFIX} - ${TOTAL_PRICE_PIZZA}`, { totalPrice })}</b>
       </div>
       <div className="cart__item-remove">
-        <Button
-          className="button--circle"
-          onClick={() => console.log(id)}
-          outline
-        >
+        <Button className="button--circle" onClick={handleRemoveItem} outline>
           <XMark />
         </Button>
       </div>
