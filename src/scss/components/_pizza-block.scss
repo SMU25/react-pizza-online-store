@@ -4,6 +4,11 @@
   width: 280px;
   text-align: center;
   margin: 0 15px 65px;
+  user-select: none;
+
+  &__info {
+    cursor: pointer;
+  }
 
   &__image {
     width: 260px;

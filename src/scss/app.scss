@@ -15,6 +15,7 @@ body {
   margin: 0 auto;
   border-radius: 10px;
   max-width: 1400px;
+  overflow-x: hidden;
 }
 
 .content {
@@ -65,6 +66,13 @@ body {
 .decline-button {
   color: #b6b6b6;
   border-color: #ddd;
+  transition: $duration;
+
+  &:hover {
+    background-color: #fff;
+    color: $black;
+    border-color: darken($color: $gray-line, $amount: 90);
+  }
 }
 
 .cart {
@@ -318,6 +326,17 @@ body {
       display: block;
       width: 300px;
       margin: 45px auto 60px;
+      animation: 10s infinite endlessWalking;
+
+      @keyframes endlessWalking {
+        from {
+          transform: translateX(-250%);
+        }
+
+        to {
+          transform: translateX(300%);
+        }
+      }
     }
 
     .button--black {

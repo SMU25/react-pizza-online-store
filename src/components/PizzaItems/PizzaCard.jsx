@@ -3,6 +3,7 @@ import cn from "classnames";
 import { useTranslation } from "react-i18next";
 import { Button } from "components/Button";
 import { ReactComponent as Plus } from "assets/icons/plus.svg";
+import { PizzaParameter } from "./PizzaParameter";
 
 const PIZZA_TYPES = ["thin", "traditional"];
 const PIZZA_SIZES = [26, 30, 40];
@@ -31,8 +32,8 @@ export const PizzaCard = ({
 }) => {
   const { t } = useTranslation();
 
-  const [isActiveType, setIsActiveType] = useState(PIZZA_TYPES[types[0]]);
-  const [isActiveSize, setIsActiveSize] = useState(sizes[0]);
+  const [activeType, setActiveType] = useState(types[0]);
+  const [activeSize, setActiveSize] = useState(sizes[0]);
 
   const onClickAddToCart = useCallback(() => {
     const pizzaObj = {
@@ -40,61 +41,58 @@ export const PizzaCard = ({
       name,
       imageUrl,
       price,
-      type: isActiveType,
-      size: isActiveSize,
+      type: activeType,
+      size: activeSize,
     };
 
     onAddToCart(pizzaObj);
-  }, [id, name, imageUrl, price, isActiveType, isActiveSize, onAddToCart]);
+  }, [id, name, imageUrl, price, activeType, activeSize, onAddToCart]);
 
-  //CHANGE змінити текст в константи і переводи додати
-  //Pizza card винести в папку та розділити на компоненти типи, розміри (один компонент на 2 параметри назва PizzaCardParameter)
-  //може і не потрібно виносити, подумаю
-  //додати не цифри типи, а замінити на назву , зробити ціну фіксовану і , щоб підтягувало в заледності від типу і розміру, вирівнювання карток, зробити , щоб йшли по порядку
+  //CHANGE-  зробити ціну фіксовану і , щоб підтягувало в заледності від типу і розміру, вирівнювання карток, зробити , щоб йшли по порядку
   //зробити карточки клікабельними, щоб при клікові додавало в корзину, можна зробити окрему сторінку під карточку
   //додати transition на типи і розміри
   // юзати компоненти для перекладу
   // щоббув прайс в баксах
   // В стилі додати Capitalize для усіх елементів
-  //перейменувати назву коснтант і т префіксів
 
   return (
     <div className="pizza-block">
-      <img className="pizza-block__image" src={imageUrl} alt={IMG_ALT_TEXT} />
-      <h4 className="pizza-block__title">{t(`${T_PREFIX} - ${name}`)}</h4>
+      <div className="pizza-block__info" onClick={onClickAddToCart}>
+        <img
+          className="pizza-block__image"
+          src={imageUrl}
+          alt={IMG_ALT_TEXT}
+          draggable={false}
+        />
+        <h4 className="pizza-block__title">{t(`${T_PREFIX} - ${name}`)}</h4>
+      </div>
       <div className="pizza-block__selector">
         <ul>
-          {PIZZA_TYPES.map((typeName, index) => (
-            <li
+          {PIZZA_TYPES.map((typeName) => (
+            <PizzaParameter
               key={typeName}
-              className={cn({
-                active: isActiveType === typeName,
-                disabled: !types.includes(index),
-              })}
-              onClick={() => setIsActiveType(typeName)}
+              param={typeName}
+              activeParam={activeType}
+              availableParams={types}
+              setActiveParameter={setActiveType}
             >
               {t(`${T_PREFIX} - ${typeName}`)}
-            </li>
+            </PizzaParameter>
           ))}
         </ul>
         <ul>
           {PIZZA_SIZES.map((sizeName) => (
-            <li
+            <PizzaParameter
               key={sizeName}
-              className={cn({
-                active: isActiveSize === sizeName,
-                disabled: !sizes.includes(sizeName),
-              })}
-              onClick={() => setIsActiveSize(sizeName)}
+              param={sizeName}
+              activeParam={activeSize}
+              availableParams={sizes}
+              setActiveParameter={setActiveSize}
             >
               {t(`${T_PREFIX} - ${SIZE_PIZZA_PARAM}`, { sizeName })}
-            </li>
+            </PizzaParameter>
           ))}
         </ul>
-
-        {/* <ul>
-          <li name="" isActiveItem="name" items={[]}></li>
-        </ul> */}
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">

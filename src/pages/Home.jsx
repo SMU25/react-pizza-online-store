@@ -4,6 +4,8 @@ import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
 import { getPizzaItems } from "redux/actions/pizzaItems";
 import { setCategory, setSortBy } from "redux/actions/filters";
+import { selectPizzaItemsState } from "redux/selectors/pizzaItems";
+import { selectFiltersState } from "redux/selectors/filters";
 import { Categories, SortPopup, PizzaItems } from "components";
 import { CATEGORIES_PIZZA } from "constants/categories";
 import { SORT_ITEMS_PIZZA } from "constants/sortItems";
@@ -20,13 +22,9 @@ export const Home = () => {
 
   const dispatch = useDispatch();
 
-  const { items: pizzaItems, isLoading } = useSelector(
-    ({ pizzaItems }) => pizzaItems
-  );
-  //CHANGE винести в селектори
+  const { items: pizzaItems, isLoading } = useSelector(selectPizzaItemsState);
 
-  const { category, sortBy } = useSelector(({ filters }) => filters);
-  //CHANGE винести в селектори
+  const { category, sortBy } = useSelector(selectFiltersState);
 
   const activeCategory =
     queryParams.get(ACTIVE_CATEGORY_ACTION_KEY) || category;
@@ -52,6 +50,8 @@ export const Home = () => {
     if (!queryParams.get(ACTIVE_CATEGORY_ACTION_KEY))
       setQueryParams(`${ACTIVE_CATEGORY_ACTION_KEY}=${activeCategory}`);
   }, [activeCategory, queryParams, setQueryParams]);
+
+  //CHANGE - додати мемо куди потрібно
 
   return (
     <div className="container">

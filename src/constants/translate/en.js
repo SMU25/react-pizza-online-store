@@ -54,4 +54,9 @@ export const EN = {
   "cart - decline": "Decline",
   "cart - go-back": "Go back",
   "cart - pay": "Pay",
+
+  "empty-cart - title": "Cart is empty 😕",
+  "empty-cart - text": `
+    <p>You have not added anything to your cart yet.</p>
+    <p>To order a pizza, go to the main page!</p>`,
 };

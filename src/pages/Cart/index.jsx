@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 import { useTranslation, Trans } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "redux/actions/cart";
+import { selectTotalPrice, selectTotalCount } from "redux/selectors/cart";
 import { useModal } from "hooks/useModal";
 import { Button, PizzaCartItems, ModalWindow } from "components";
 import { PATHNAMES } from "constants/routes";
 import { ReactComponent as CartIcon } from "assets/icons/cart.svg";
 import { ReactComponent as Trash } from "assets/icons/trash.svg";
 import { ReactComponent as ArrowLeft } from "assets/icons/grey-arrow-left.svg";
+import emptyCart from "assets/img/empty-cart.png";
 import { EmptyCart } from "./EmptyCart";
 import { T_PREFIX, GO_BACK_BUTTON_NAME } from "./constants";
 
@@ -34,13 +36,10 @@ export const Cart = () => {
     closeModal();
   }, [dispatch, closeModal]);
 
-  const {
-    items: cartItems = [],
-    //CHANGE - витягувати в карт ітемс це і поробити selectors
-    totalPrice,
-    totalCount,
-  } = useSelector(({ cart }) => cart);
+  const totalPrice = useSelector(selectTotalPrice);
+  const totalCount = useSelector(selectTotalCount);
 
+  // cartDetails is used in cartState dependencies, but it doesn't need useMemo because it's a simple array
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const cartDetails = [
     {
@@ -68,7 +67,7 @@ export const Cart = () => {
 
   const cartState = useMemo(() => {
     if (!totalCount) {
-      return <EmptyCart />;
+      return <EmptyCart img={emptyCart} />;
     } else {
       return (
         <div className="cart">
@@ -86,7 +85,7 @@ export const Cart = () => {
               <span> {t(`${T_PREFIX} - ${CLEAR_CART_BUTTON_NAME}`)}</span>
             </Button>
           </div>
-          <PizzaCartItems cartItems={cartItems} />
+          <PizzaCartItems />
           <div className="cart__bottom">
             <div className="cart__bottom-details">
               {cartDetails.map(({ i118Key, i18nParams }) => (
@@ -110,9 +109,7 @@ export const Cart = () => {
         </div>
       );
     }
-  }, [cartItems, cartDetails, totalCount, openModal, t]);
-
-  //CHANGE - додати пропадання модалки при кліке поза нею та видалити лишні useCallbacks
+  }, [cartDetails, totalCount, openModal, t]);
 
   return (
     <div className="container container--cart">

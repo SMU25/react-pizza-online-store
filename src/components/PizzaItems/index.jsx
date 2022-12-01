@@ -2,6 +2,7 @@ import React, { memo, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
 import { addPizzaToCart } from "redux/actions/cart";
+import { selectCartItems } from "redux/selectors/cart";
 import { PizzaCard } from "./PizzaCard";
 import { LoadingPizzaCard } from "./LoadingPizzaCard";
 
@@ -15,8 +16,7 @@ export const PizzaItems = memo(({ isLoading, pizzaItems }) => {
 
   const dispatch = useDispatch();
 
-  const cartItems = useSelector(({ cart }) => cart.items);
-  //CHANGE винести в селектори
+  const cartItems = useSelector(selectCartItems);
 
   const onAddToCart = useCallback(
     (pizzaObj) => dispatch(addPizzaToCart(pizzaObj)),

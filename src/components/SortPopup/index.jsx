@@ -1,13 +1,7 @@
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  useRef,
-  useMemo,
-  memo,
-} from "react";
+import React, { useState, useCallback, useRef, useMemo, memo } from "react";
 import cn from "classnames";
 import { useTranslation } from "react-i18next";
+import { useClickOutside } from "hooks/useClickOutside";
 import { ReactComponent as Arrow } from "assets/icons/arrow-top.svg";
 import { SortItem } from "./SortItem";
 import { T_PREFIX } from "./constants";
@@ -18,28 +12,14 @@ export const SortPopup = memo(
   ({ sortBy, onSelectSortBy, sortItemsPizza = [] }) => {
     const { t } = useTranslation();
 
-    const [isOpenPopup, setIsOpenPopup] = useState(false);
-
-    const toggleIsOpenPopup = useCallback(
-      () => setIsOpenPopup((prev) => !prev),
-      []
-    );
-
     const sortRef = useRef(null);
 
-    const handleOutsideClick = (e) => {
-      const path =
-        e.path ||
-        (e.composedPath && e.composedPath()) ||
-        e.composedPath(e.target);
-      if (!path.includes(sortRef.current)) setIsOpenPopup(false);
-    };
-    //CHANGE
+    const [isOpenPopup, setIsOpenPopup] = useState(false);
 
-    useEffect(() => {
-      document.body.addEventListener("click", handleOutsideClick);
-    }, []);
-    //CHANGE
+    const onClosePopup = () => setIsOpenPopup(false);
+    const toggleIsOpenPopup = () => setIsOpenPopup((prev) => !prev);
+
+    useClickOutside(sortRef, onClosePopup);
 
     const activeItem = useMemo(
       () => sortItemsPizza.find(({ type }) => type === sortBy.type),

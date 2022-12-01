@@ -1,14 +1,11 @@
-import React, { useCallback } from "react";
+import React from "react";
 import cn from "classnames";
 import { useTranslation } from "react-i18next";
 
 const Language = ({ language }) => {
   const { i18n } = useTranslation();
 
-  const chooseLanguage = useCallback(
-    () => i18n.changeLanguage(language),
-    [i18n, language]
-  );
+  const chooseLanguage = () => i18n.changeLanguage(language);
 
   return (
     <li
