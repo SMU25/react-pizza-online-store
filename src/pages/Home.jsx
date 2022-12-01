@@ -51,7 +51,7 @@ export const Home = () => {
       setQueryParams(`${ACTIVE_CATEGORY_ACTION_KEY}=${activeCategory}`);
   }, [activeCategory, queryParams, setQueryParams]);
 
-  //CHANGE - додати мемо куди потрібно
+  //CHANGE - додати мемо куди потрібно < адаптив додати
 
   return (
     <div className="container">

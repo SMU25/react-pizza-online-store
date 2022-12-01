@@ -127,6 +127,8 @@ export const Cart = () => {
     }
   }, [totalCount, t, openClearModal, cartDetails, onClickOrder]);
 
+  //CHANGE - може модалки переробити
+
   return (
     <div className="container container--cart">
       <ModalWindow

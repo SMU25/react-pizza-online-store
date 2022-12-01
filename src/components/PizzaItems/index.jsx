@@ -29,7 +29,7 @@ export const PizzaItems = memo(({ isLoading, pizzaItems }) => {
         <LoadingPizzaCard key={index} />
       ));
     } else if (pizzaItems?.length) {
-      return pizzaItems.map((pizzaItem) => (
+      return pizzaItems?.map((pizzaItem) => (
         <PizzaCard
           key={`${pizzaItem.name}_${pizzaItem.id}`}
           onAddToCart={onAddToCart}
