@@ -42,6 +42,7 @@ export const PizzaItems = memo(({ isLoading, pizzaItems }) => {
     else {
       return <h2>{t(`${T_PREFIX} - ${NO_DATA_TEXT}`)}</h2>;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, pizzaItems, cartItems, onAddToCart, t]);
 
   return <div className="content__items">{renderedPizzaItems}</div>;
