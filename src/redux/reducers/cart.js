@@ -41,22 +41,6 @@ const cartReducer = (state = initialState, action) => {
       };
     }
 
-    // case ACTION_TYPES.MINUS_CART_ITEM: {
-    //   // const newItems = state.items[action.payload].items;
-    //   const newItems = state.items;
-
-    //   if (state.items[action.payload].items.length > 1) {
-    //     state.items[action.payload].items.pop();
-    //   } else {
-    //     state.items[action.payload].items = [];
-    //   }
-
-    //   return {
-    //     items: newItems,
-    //     ...state,
-    //   };
-    // }
-
     case ACTION_TYPES.MINUS_CART_ITEM: {
       const allPizzasById = state.items[action.payload].items;
 
