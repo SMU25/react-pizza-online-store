@@ -28,16 +28,18 @@ export const PizzaItems = memo(({ isLoading, pizzaItems }) => {
       return ARRAY_EMPTY_ELEMENTS.map((_, index) => (
         <LoadingPizzaCard key={index} />
       ));
-    } else if (pizzaItems?.length) {
-      return pizzaItems?.map((pizzaItem) => (
-        <PizzaCard
-          key={`${pizzaItem.name}_${pizzaItem.id}`}
-          onAddToCart={onAddToCart}
-          totalCountAdded={cartItems[pizzaItem.id]?.totalCount}
-          {...pizzaItem}
-        />
-      ));
-    } else {
+    }
+    // else if (pizzaItems?.length) {
+    //   return pizzaItems.map((pizzaItem) => (
+    //     <PizzaCard
+    //       key={`${pizzaItem.name}_${pizzaItem.id}`}
+    //       onAddToCart={onAddToCart}
+    //       totalCountAdded={cartItems[pizzaItem.id]?.totalCount}
+    //       {...pizzaItem}
+    //     />
+    //   ));
+    // }
+    else {
       return <h2>{t(`${T_PREFIX} - ${NO_DATA_TEXT}`)}</h2>;
     }
   }, [isLoading, pizzaItems, cartItems, onAddToCart, t]);
