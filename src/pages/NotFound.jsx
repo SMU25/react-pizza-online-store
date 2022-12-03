@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 const T_PREFIX = "not-found";
 const HEADING = "title";
 
-export const NotFound = () => {
+const NotFound = () => {
   const { t } = useTranslation();
 
   return (
@@ -13,3 +13,5 @@ export const NotFound = () => {
     </div>
   );
 };
+
+export default NotFound;

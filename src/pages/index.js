@@ -1,3 +1,3 @@
-export { Home } from "pages/Home";
-export { Cart } from "pages/Cart";
-export { NotFound } from "pages/NotFound";
+export { default as Home } from "./Home";
+export { default as Cart } from "./Cart";
+export { default as NotFound } from "./NotFound";

@@ -1,12 +1,11 @@
 import axios from "axios";
+import { CATEGORY_NAME_ALL } from "constants/categories";
 import { API_URL_PIZZA_ITEMS } from "constants/urls";
 
 export const ACTION_TYPES = {
   SET_IS_LOADING: "SET_IS_LOADING",
   SET_PIZZA_ITEMS: "SET_PIZZA_ITEMS",
 };
-
-const CATEGORY_NAME_ALL = "all";
 
 export const setIsLoading = (payload) => ({
   type: ACTION_TYPES.SET_IS_LOADING,

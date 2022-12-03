@@ -26,7 +26,7 @@ const CONFIRM_BUTTON_NAME = "confirm";
 const DECLINE_BUTTON_NAME = "decline";
 const BUY_BUTTON_NAME = "buy";
 
-export const Cart = () => {
+const Cart = () => {
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
@@ -55,18 +55,19 @@ export const Cart = () => {
   const totalPrice = useSelector(selectTotalPrice);
   const totalCount = useSelector(selectTotalCount);
 
-  // cartDetails is used in cartState dependencies, but it doesn't need useMemo because it's a simple array
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const cartDetails = [
-    {
-      i118Key: `${T_PREFIX} - ${TOTAL_COUNT_CART}`,
-      i18nParams: { totalCount },
-    },
-    {
-      i118Key: `${T_PREFIX} - ${TOTAL_PRICE_CART}`,
-      i18nParams: { totalPrice },
-    },
-  ];
+  const cartDetails = useMemo(
+    () => [
+      {
+        i118Key: `${T_PREFIX} - ${TOTAL_COUNT_CART}`,
+        i18nParams: { totalCount },
+      },
+      {
+        i118Key: `${T_PREFIX} - ${TOTAL_PRICE_CART}`,
+        i18nParams: { totalPrice },
+      },
+    ],
+    [totalCount, totalPrice]
+  );
 
   const modalWindowButtons = [
     {
@@ -125,7 +126,7 @@ export const Cart = () => {
         </div>
       );
     }
-  }, [totalCount, t, openClearModal, cartDetails, onClickOrder]);
+  }, [totalCount, cartDetails, t, openClearModal, onClickOrder]);
 
   //CHANGE - може модалки переробити
 
@@ -153,3 +154,5 @@ export const Cart = () => {
     </div>
   );
 };
+
+export default Cart;

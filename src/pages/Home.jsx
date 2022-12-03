@@ -7,18 +7,22 @@ import { setCategory, setSortBy } from "redux/actions/filters";
 import { selectPizzaItemsState } from "redux/selectors/pizzaItems";
 import { selectFiltersState } from "redux/selectors/filters";
 import { Categories, SortPopup, PizzaItems } from "components";
-import { CATEGORIES_PIZZA } from "constants/categories";
+import { CATEGORIES_PIZZA, CATEGORY_NAME_ALL } from "constants/categories";
 import { SORT_ITEMS_PIZZA } from "constants/sortItems";
 
 const T_PREFIX = "home";
 const ACTIVE_CATEGORY_ACTION_KEY = "category";
 
-//CHANGE add default export
-
-export const Home = () => {
+const Home = () => {
   const { t } = useTranslation();
 
   const [queryParams, setQueryParams] = useSearchParams();
+  const activeCategoryQueryParam = queryParams.get(ACTIVE_CATEGORY_ACTION_KEY);
+
+  const updateCategoryQueryParam = useCallback(
+    (category) => setQueryParams(`${ACTIVE_CATEGORY_ACTION_KEY}=${category}`),
+    [setQueryParams]
+  );
 
   const dispatch = useDispatch();
 
@@ -26,8 +30,7 @@ export const Home = () => {
 
   const { category, sortBy } = useSelector(selectFiltersState);
 
-  const activeCategory =
-    queryParams.get(ACTIVE_CATEGORY_ACTION_KEY) || category;
+  const activeCategory = activeCategoryQueryParam || category;
 
   useEffect(() => {
     dispatch(getPizzaItems(activeCategory, sortBy));
@@ -35,10 +38,10 @@ export const Home = () => {
 
   const onSelectCategory = useCallback(
     (name) => {
-      setQueryParams(`${ACTIVE_CATEGORY_ACTION_KEY}=${name}`);
+      updateCategoryQueryParam(name);
       dispatch(setCategory(name));
     },
-    [dispatch, setQueryParams]
+    [dispatch, updateCategoryQueryParam]
   );
 
   const onSelectSortBy = useCallback(
@@ -47,12 +50,11 @@ export const Home = () => {
   );
 
   useEffect(() => {
-    if (!queryParams.get(ACTIVE_CATEGORY_ACTION_KEY))
-      setQueryParams(`${ACTIVE_CATEGORY_ACTION_KEY}=${activeCategory}`);
-  }, [activeCategory, queryParams, setQueryParams]);
+    if (!activeCategoryQueryParam) updateCategoryQueryParam(activeCategory);
+  }, [activeCategory, activeCategoryQueryParam, updateCategoryQueryParam]);
 
-  //CHANGE - додати мемо куди потрібно < адаптив додати
-  //коли вибраніт усі категрії піц, то не відображається в урлі
+  //CHANGE - адаптив додати
+
   return (
     <div className="container">
       <div className="content__top">
@@ -72,3 +74,5 @@ export const Home = () => {
     </div>
   );
 };
+
+export default Home;
