@@ -7,7 +7,7 @@ import { setCategory, setSortBy } from "redux/actions/filters";
 import { selectPizzaItemsState } from "redux/selectors/pizzaItems";
 import { selectFiltersState } from "redux/selectors/filters";
 import { Categories, SortPopup, PizzaItems } from "components";
-import { CATEGORIES_PIZZA, CATEGORY_NAME_ALL } from "constants/categories";
+import { CATEGORIES_PIZZA } from "constants/categories";
 import { SORT_ITEMS_PIZZA } from "constants/sortItems";
 
 const T_PREFIX = "home";

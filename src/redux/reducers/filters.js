@@ -1,11 +1,12 @@
 import { ACTION_TYPES } from "redux/actions/filters";
+import { CATEGORY_NAME_ALL } from "constants/categories";
 
 const initialState = {
-  category: "all",
+  category: CATEGORY_NAME_ALL,
   sortBy: { type: "rating", order: "desc" },
 };
 
-export const filtersReducer = (state = initialState, action) => {
+const filtersReducer = (state = initialState, action) => {
   switch (action.type) {
     case ACTION_TYPES.SET_SORT_BY:
       return {

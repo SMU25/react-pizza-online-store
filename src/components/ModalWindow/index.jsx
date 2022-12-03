@@ -1,11 +1,20 @@
 import React, { useRef } from "react";
 import cn from "classnames";
+import { useDispatch, useSelector } from "react-redux";
+import { hideModal } from "redux/actions/modal";
+import { selectModalState } from "redux/selectors/modal";
 import { useClickOutside } from "hooks/useClickOutside";
 import { Button } from "components";
 import { ReactComponent as Close } from "assets/icons/xmark.svg";
 
-export const ModalWindow = ({ children, isOpen, title, text, onClose }) => {
+export const ModalWindow = () => {
+  const dispatch = useDispatch();
+
+  const { isOpen, title, text, children } = useSelector(selectModalState);
+
   const modalRef = useRef();
+
+  const onClose = () => dispatch(hideModal());
 
   useClickOutside(modalRef, onClose);
 

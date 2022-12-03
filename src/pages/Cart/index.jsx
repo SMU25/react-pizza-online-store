@@ -4,8 +4,8 @@ import { useTranslation, Trans } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "redux/actions/cart";
 import { selectTotalPrice, selectTotalCount } from "redux/selectors/cart";
-import { useModal } from "hooks/useModal";
-import { Button, PizzaCartItems, ModalWindow } from "components";
+import { showModal, hideModal } from "redux/actions/modal";
+import { Button, PizzaCartItems } from "components";
 import { PATHNAMES } from "constants/routes";
 import { ReactComponent as CartIcon } from "assets/icons/cart.svg";
 import { ReactComponent as Trash } from "assets/icons/trash.svg";
@@ -31,26 +31,12 @@ const Cart = () => {
 
   const dispatch = useDispatch();
 
-  const {
-    closeModal: closeClearModal,
-    openModal: openClearModal,
-    isOpenModal: isOpenClearModal,
-  } = useModal();
-
-  const {
-    closeModal: closeOrderModal,
-    openModal: openOrderModal,
-    isOpenModal: isOpenOrderModal,
-  } = useModal();
+  const onCloseModal = useCallback(() => dispatch(hideModal()), [dispatch]);
 
   const onClearCart = useCallback(() => {
     dispatch(clearCart());
-    closeClearModal();
-  }, [dispatch, closeClearModal]);
-
-  const onClickOrder = useCallback(() => {
-    openOrderModal();
-  }, [openOrderModal]);
+    onCloseModal();
+  }, [dispatch, onCloseModal]);
 
   const totalPrice = useSelector(selectTotalPrice);
   const totalCount = useSelector(selectTotalCount);
@@ -69,19 +55,49 @@ const Cart = () => {
     [totalCount, totalPrice]
   );
 
-  const modalWindowButtons = [
-    {
-      name: t(`${T_PREFIX} - ${CONFIRM_BUTTON_NAME}`),
-      onClick: onClearCart,
-    },
-    {
-      name: t(`${T_PREFIX} - ${DECLINE_BUTTON_NAME}`),
-      onClick: closeClearModal,
-      outline: true,
-      className: "decline-button",
-    },
-  ];
+  const modalWindowButtons = useMemo(
+    () => [
+      {
+        name: t(`${T_PREFIX} - ${CONFIRM_BUTTON_NAME}`),
+        onClick: onClearCart,
+      },
+      {
+        name: t(`${T_PREFIX} - ${DECLINE_BUTTON_NAME}`),
+        onClick: onCloseModal,
+        outline: true,
+        className: "decline-button",
+      },
+    ],
+    [onClearCart, onCloseModal, t]
+  );
 
+  const showClearCartModal = useCallback(
+    () =>
+      dispatch(
+        showModal({
+          title: t(`${T_PREFIX} - ${CLEAR_MODAL_WINDOW_HEADING}`),
+          text: t(`${T_PREFIX} - ${CLEAR_MODAL_WINDOW_TEXT}`),
+          children: modalWindowButtons.map(({ name, ...button }) => (
+            <Button key={name} {...button}>
+              {name}
+            </Button>
+          )),
+        })
+      ),
+    [dispatch, modalWindowButtons, t]
+  );
+
+  const showOrderModal = useCallback(
+    () =>
+      dispatch(
+        showModal({
+          title: t(`${T_PREFIX} - ${ORDER_MODAL_WINDOW_HEADING}`),
+          text: t(`${T_PREFIX} - ${ORDER_MODAL_WINDOW_TEXT}`),
+        })
+      ),
+    [dispatch, t]
+  );
+  //CHANGE  - модалку можна переробити і зробити компонент template , де буде конфірм
   const cartState = useMemo(() => {
     if (!totalCount) {
       return <EmptyCart img={emptyCart} />;
@@ -95,7 +111,7 @@ const Cart = () => {
             </h2>
             <Button
               className="cart__clear"
-              onClick={openClearModal}
+              onClick={showClearCartModal}
               disabledDefaultStyle
             >
               <Trash />
@@ -118,7 +134,7 @@ const Cart = () => {
                   <span>{t(`${T_PREFIX} - ${GO_BACK_BUTTON_NAME}`)}</span>
                 </Button>
               </Link>
-              <Button className="button buy-btn" onClick={onClickOrder}>
+              <Button className="button buy-btn" onClick={showOrderModal}>
                 <span>{t(`${T_PREFIX} - ${BUY_BUTTON_NAME}`)}</span>
               </Button>
             </div>
@@ -126,33 +142,9 @@ const Cart = () => {
         </div>
       );
     }
-  }, [totalCount, cartDetails, t, openClearModal, onClickOrder]);
+  }, [totalCount, cartDetails, showClearCartModal, showOrderModal, t]);
 
-  //CHANGE - може модалки переробити
-
-  return (
-    <div className="container container--cart">
-      <ModalWindow
-        isOpen={isOpenClearModal}
-        onClose={closeClearModal}
-        title={t(`${T_PREFIX} - ${CLEAR_MODAL_WINDOW_HEADING}`)}
-        text={t(`${T_PREFIX} - ${CLEAR_MODAL_WINDOW_TEXT}`)}
-      >
-        {modalWindowButtons.map(({ name, ...button }) => (
-          <Button key={name} {...button}>
-            {name}
-          </Button>
-        ))}
-      </ModalWindow>
-      <ModalWindow
-        isOpen={isOpenOrderModal}
-        onClose={closeOrderModal}
-        title={t(`${T_PREFIX} - ${ORDER_MODAL_WINDOW_HEADING}`)}
-        text={t(`${T_PREFIX} - ${ORDER_MODAL_WINDOW_TEXT}`)}
-      />
-      {cartState}
-    </div>
-  );
+  return <div className="container container--cart">{cartState}</div>;
 };
 
 export default Cart;

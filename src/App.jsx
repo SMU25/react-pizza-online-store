@@ -3,13 +3,14 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "redux/store";
 import AppRoutes from "routes/Router";
-import { Header } from "components";
+import { Header, ModalWindow } from "components";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Provider store={store}>
+          <ModalWindow />
           <div className="wrapper">
             <Header />
             <div className="content">

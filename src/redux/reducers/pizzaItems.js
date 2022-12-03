@@ -5,7 +5,7 @@ const initialState = {
   isLoading: true,
 };
 
-export const pizzaItemsReducer = (state = initialState, action) => {
+const pizzaItemsReducer = (state = initialState, action) => {
   switch (action.type) {
     case ACTION_TYPES.SET_IS_LOADING:
       return {
