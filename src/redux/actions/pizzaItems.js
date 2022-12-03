@@ -25,7 +25,7 @@ export const getPizzaItems =
       dispatch(setIsLoading(true));
 
       const category = filterBy !== CATEGORY_NAME_ALL ? filterBy : "";
-      const url = `${API_URL_PIZZA_ITEMS}/?category_like=${category}&_sort=${type}&_order=${order}`;
+      const url = `${API_URL_PIZZA_ITEMS}?category_like=${category}&_sort=${type}&_order=${order}`;
       const { data } = await axios(url);
 
       dispatch(setPizzaItems(data));
