@@ -52,7 +52,7 @@ export const Home = () => {
   }, [activeCategory, queryParams, setQueryParams]);
 
   //CHANGE - додати мемо куди потрібно < адаптив додати
-
+  //коли вибраніт усі категрії піц, то не відображається в урлі
   return (
     <div className="container">
       <div className="content__top">
