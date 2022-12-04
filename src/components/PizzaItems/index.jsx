@@ -42,5 +42,9 @@ export const PizzaItems = memo(({ isLoading, pizzaItems }) => {
     }
   }, [isLoading, pizzaItems, cartItems, onAddToCart, t]);
 
-  return <div className="content__items">{renderedPizzaItems}</div>;
+  return (
+    <div className="content__items content__items--home">
+      {renderedPizzaItems}
+    </div>
+  );
 });

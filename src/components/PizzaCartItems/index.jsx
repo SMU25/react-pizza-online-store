@@ -29,7 +29,7 @@ export const PizzaCartItems = () => {
   );
 
   return (
-    <div className="content__items">
+    <div className="content__items content__items--cart">
       {Object.entries(cartItems).map(([id, item]) => (
         <PizzaCartItem
           key={id}

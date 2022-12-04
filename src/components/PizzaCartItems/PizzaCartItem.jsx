@@ -89,7 +89,9 @@ export const PizzaCartItem = memo(
           />
         </div>
         <div className="cart__item-info">
-          <h3>{t(`${T_PREFIX} - ${name}`)}</h3>
+          <h3 className="scrollbar-thumb-custom">
+            {t(`${T_PREFIX} - ${name}`)}
+          </h3>
           <p>{pizzaParamsInfo}</p>
         </div>
         <div className="cart__item-count">
