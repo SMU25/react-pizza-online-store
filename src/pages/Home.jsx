@@ -53,8 +53,6 @@ const Home = () => {
     if (!activeCategoryQueryParam) updateCategoryQueryParam(activeCategory);
   }, [activeCategory, activeCategoryQueryParam, updateCategoryQueryParam]);
 
-  //CHANGE - адаптив додати
-
   return (
     <div className="container">
       <div className="content__top">

@@ -4,7 +4,7 @@ import { CategoryItem } from "./CategoryItem";
 
 export const Categories = memo(
   ({ activeCategory, onSelectCategory, categoriesPizza }) => (
-    <div className="categories">
+    <div className="categories scrollbar-thumb-custom">
       <ul>
         {categoriesPizza.map(({ id, name }) => (
           <CategoryItem

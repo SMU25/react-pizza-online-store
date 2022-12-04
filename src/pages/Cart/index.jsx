@@ -6,6 +6,8 @@ import { clearCart } from "redux/actions/cart";
 import { selectTotalPrice, selectTotalCount } from "redux/selectors/cart";
 import { showModal, hideModal } from "redux/actions/modal";
 import { Button, PizzaCartItems } from "components";
+import { Confirmation } from "components/ModalWindow/templates/Confirmation";
+import { Alert } from "components/ModalWindow/templates/Alert";
 import { PATHNAMES } from "constants/routes";
 import { ReactComponent as CartIcon } from "assets/icons/cart.svg";
 import { ReactComponent as Trash } from "assets/icons/trash.svg";
@@ -24,6 +26,7 @@ const ORDER_MODAL_WINDOW_HEADING = "order-modal-title";
 const ORDER_MODAL_WINDOW_TEXT = "order-modal-text";
 const CONFIRM_BUTTON_NAME = "confirm";
 const DECLINE_BUTTON_NAME = "decline";
+const OKAY_BUTTON_NAME = "okay";
 const BUY_BUTTON_NAME = "buy";
 
 const Cart = () => {
@@ -55,36 +58,23 @@ const Cart = () => {
     [totalCount, totalPrice]
   );
 
-  const modalWindowButtons = useMemo(
-    () => [
-      {
-        name: t(`${T_PREFIX} - ${CONFIRM_BUTTON_NAME}`),
-        onClick: onClearCart,
-      },
-      {
-        name: t(`${T_PREFIX} - ${DECLINE_BUTTON_NAME}`),
-        onClick: onCloseModal,
-        outline: true,
-        className: "decline-button",
-      },
-    ],
-    [onClearCart, onCloseModal, t]
-  );
-
   const showClearCartModal = useCallback(
     () =>
       dispatch(
         showModal({
           title: t(`${T_PREFIX} - ${CLEAR_MODAL_WINDOW_HEADING}`),
           text: t(`${T_PREFIX} - ${CLEAR_MODAL_WINDOW_TEXT}`),
-          children: modalWindowButtons.map(({ name, ...button }) => (
-            <Button key={name} {...button}>
-              {name}
-            </Button>
-          )),
+          children: (
+            <Confirmation
+              confirmButtonName={t(`${T_PREFIX} - ${CONFIRM_BUTTON_NAME}`)}
+              cancelButtonName={t(`${T_PREFIX} - ${DECLINE_BUTTON_NAME}`)}
+              onConfirm={onClearCart}
+              onClose={onCloseModal}
+            />
+          ),
         })
       ),
-    [dispatch, modalWindowButtons, t]
+    [dispatch, onClearCart, onCloseModal, t]
   );
 
   const showOrderModal = useCallback(
@@ -93,11 +83,17 @@ const Cart = () => {
         showModal({
           title: t(`${T_PREFIX} - ${ORDER_MODAL_WINDOW_HEADING}`),
           text: t(`${T_PREFIX} - ${ORDER_MODAL_WINDOW_TEXT}`),
+          children: (
+            <Alert
+              approvalButtonName={t(`${T_PREFIX} - ${OKAY_BUTTON_NAME}`)}
+              onClose={onCloseModal}
+            />
+          ),
         })
       ),
-    [dispatch, t]
+    [dispatch, onCloseModal, t]
   );
-  //CHANGE  - модалку можна переробити і зробити компонент template , де буде конфірм
+
   const cartState = useMemo(() => {
     if (!totalCount) {
       return <EmptyCart img={emptyCart} />;

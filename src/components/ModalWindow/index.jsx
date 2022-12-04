@@ -27,9 +27,9 @@ export const ModalWindow = () => {
         <Button className="close-button" onClick={onClose} disabledDefaultStyle>
           <Close />
         </Button>
-        <h3 className="truncate">{title}</h3>
-        <p className="truncate">{text}</p>
-        <div className="modal-window__children-container">{children}</div>
+        {title && <h3 className="truncate">{title}</h3>}
+        {text && <p>{text}</p>}
+        {children}
       </div>
     </div>
   );

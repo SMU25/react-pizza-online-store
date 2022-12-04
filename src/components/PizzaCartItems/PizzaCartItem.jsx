@@ -69,7 +69,6 @@ export const PizzaCartItem = memo(
     //     )
     // );
     //CHANGE - підрахунок усіх піц
-    // пофіксити хедер оипкий, із-за оверфлов в враппері не робить, а він потрібен для анімації
 
     const pizzaParamsInfo = `
   ${t(`${T_PREFIX} - ${type}`)},

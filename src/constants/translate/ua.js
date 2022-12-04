@@ -16,6 +16,10 @@ export const UA = {
   "sort-popup - price": "Ціною",
   "sort-popup - alphabet": "Алфавітом (Eng)",
 
+  "modal-confirmation - yes": "Так",
+  "modal-confirmation - no": "Ні",
+  "modal-alert - ok": "Ок",
+
   "pizza-items - no-data": "Дані не завантажено або вони відсутні",
 
   "pizza-card - pepperoni-fresh": "Пепероні Фреш з перцем",
@@ -35,7 +39,8 @@ export const UA = {
   "pizza-card - total-price": "{{totalPrice}} ₴",
   "pizza-card - add": "Додати",
 
-  "not-found - title": "Помилка 404 - Сторінку не знайдено.",
+  "not-found - title": "Помилка 404",
+  "not-found - description": "Сторінку '{{page}}' не знайдено.",
 
   "home - all": "Усі піци",
   "home - meat": "М'ясні піци",
@@ -52,9 +57,9 @@ export const UA = {
   "cart - clear-modal-text": "Ви дійсно хочете очистити корзину?",
   "cart - order-modal-title": "Замовлення",
   "cart - order-modal-text": "Ваше замовлення прийняте! 😋",
-
   "cart - confirm": "Підтвердити",
   "cart - decline": "Відмінити",
+  "cart - okay": "Добре",
   "cart - go-back": "Повернутися назад",
   "cart - buy": "Замовити",
 

@@ -16,6 +16,10 @@ export const EN = {
   "sort-popup - price": "Price",
   "sort-popup - alphabet": "Alphabet",
 
+  "modal-confirmation - yes": "Yes",
+  "modal-confirmation - no": "No",
+  "modal-alert - ok": "Ok",
+
   "pizza-items - no-data": "Data is not loaded or is missing",
 
   "pizza-card - pepperoni-fresh": "Pepperoni Fresh with pepper",
@@ -35,7 +39,8 @@ export const EN = {
   "pizza-card - total-price": "{{totalPrice}} ₴",
   "pizza-card - add": "Add",
 
-  "not-found - title": "Error 404 - Page not found.",
+  "not-found - title": "Error 404",
+  "not-found - description": "Page '{{page}}' not found.",
 
   "home - all": "All pizzas",
   "home - meat": "Meat pizzas",
@@ -47,13 +52,14 @@ export const EN = {
   "cart - title": "Cart",
   "cart - total-price": "Total price: <strong>{{totalPrice}} ₴</strong>",
   "cart - total-count": "Total pizzas: <strong>{{totalCount}} pcs.</strong>",
-  "cart - clear-cart": "Clear cart",
+  "cart - clear-cart": "Clear the cart",
   "cart - clear-modal-title": "Cleaning the cart",
   "cart - clear-modal-text": "Do you want to empty the cart?",
   "cart - order-modal-title": "Order",
   "cart - order-modal-text": "Your order has been accepted! 😋",
   "cart - confirm": "Confirm",
   "cart - decline": "Decline",
+  "cart - okay": "Okay",
   "cart - go-back": "Go back",
   "cart - buy": "Buy",
 

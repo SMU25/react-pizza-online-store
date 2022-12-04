@@ -1,6 +1,17 @@
 @import "../variables";
 
 .categories {
+  overflow: auto;
+
+  @media (max-width: 1244px) {
+    padding: 0 0 20px 0;
+  }
+
+  &::-webkit-scrollbar {
+    height: 8px;
+    background-color: #fff;
+  }
+
   ul {
     display: flex;
 
