@@ -30,6 +30,7 @@
     "eject": "react-scripts eject",
     "server": "npx json-server --watch public/db.json --port=3001"
   },
+  "proxy": "https://server-react-pizza.vercel.app",
   "eslintConfig": {
     "extends": [
       "react-app",
