@@ -9,7 +9,6 @@ const IMG_ALT_TEXT = "Pizza";
 
 const T_PREFIX = "pizza-card";
 const TOTAL_PRICE_PIZZA = "total-price";
-const SIZE_PIZZA_PARAM = "size";
 
 export const PizzaCartItem = memo(
   ({
@@ -17,13 +16,14 @@ export const PizzaCartItem = memo(
     items,
     totalPrice,
     totalCount,
+    paramsInfo,
     onMinusCartItem,
     onPlusCartItem,
     onRemoveCartItem,
   }) => {
     const { t } = useTranslation();
 
-    const { name, imageUrl, type, size } = items[0];
+    const { name, imageUrl } = items[0];
 
     const handleMinusItem = useCallback(
       () => onMinusCartItem(id),
@@ -40,43 +40,7 @@ export const PizzaCartItem = memo(
       [id, onRemoveCartItem]
     );
 
-    // const pizzaCount = useMemo(() => {
-    //   const getCountPizzas = (type, size) =>
-    //     items
-    //       .filter((item) => item.type === type)
-    //       .filter((item) => item.size === size);
-
-    //   const obj = {
-    //     thinSmall: getCountPizzas("thin", 26),
-    //     thinMedium: getCountPizzas("thin", 30),
-    //     thinBig: getCountPizzas("thin", 40),
-    //     traditionalSmall: getCountPizzas("traditional", 26),
-    //     traditionalMedium: getCountPizzas("traditional", 30),
-    //     traditionalBig: getCountPizzas("traditional", 40),
-    //   };
-
-    //   return obj;
-    // }, [items]);
-
-    // const pizzaParamsInfo = Object.values(pizzaCount).map(
-    //   (item) =>
-    //     Boolean(item.length) && (
-    //       <li>{`
-    // ${t(`${T_PREFIX} - ${item[0].type}`)},
-    // ${t(`${T_PREFIX} - ${SIZE_PIZZA_PARAM}`, { sizeName: item[0].size })}  x ${
-    //         item.length
-    //       }`}</li>
-    //     )
-    // );
-    //CHANGE - підрахунок усіх піц
-
-    const pizzaParamsInfo = `
-  ${t(`${T_PREFIX} - ${type}`)},
-  ${t(`${T_PREFIX} - ${SIZE_PIZZA_PARAM}`, { sizeName: size })}`;
-
-    //CHANGE
-    //пофіксити, щоб відображало кілька типів піц ,які замовляються і їх кількість
-    // на даний омент ,якщо додати току і 26см(наприклад), то після додавання іншого типу, зміни не відобраються
+    const pizzaParamsFiltered = paramsInfo.filter(({ count }) => count);
 
     return (
       <div className="cart__item">
@@ -92,7 +56,13 @@ export const PizzaCartItem = memo(
           <h3 className="scrollbar-thumb-custom">
             {t(`${T_PREFIX} - ${name}`)}
           </h3>
-          <p>{pizzaParamsInfo}</p>
+          <ul>
+            {pizzaParamsFiltered.map(({ key, count }) => (
+              <li key={key}>
+                <p>{t(`${T_PREFIX} - ${key}`, { count })}</p>
+              </li>
+            ))}
+          </ul>
         </div>
         <div className="cart__item-count">
           <Button

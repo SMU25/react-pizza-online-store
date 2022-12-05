@@ -2,11 +2,10 @@ import React, { useState, useCallback, memo } from "react";
 import cn from "classnames";
 import { useTranslation } from "react-i18next";
 import { Button } from "components/Button";
+import { PIZZA_TYPES, PIZZA_SIZES } from "constants/pizzaParameters";
 import { ReactComponent as Plus } from "assets/icons/plus.svg";
 import { PizzaParameter } from "./PizzaParameter";
 
-const PIZZA_TYPES = ["thin", "traditional"];
-const PIZZA_SIZES = [26, 30, 40];
 const PRICES_TYPES = { thin: 0, traditional: 25 };
 const PRICES_SIZES = { 26: 0, 30: 10, 40: 50 };
 //можна зробити вичислення залежно від ціни на піцу, щоб вираховувало ціну на бліьші розміри, наприклад: стоїть 150 , а я вираховую зі 150 наскільки дорожче буде 30 , тобто буде
@@ -14,6 +13,7 @@ const PRICES_SIZES = { 26: 0, 30: 10, 40: 50 };
 // далі 15% * ціну(150) і ділю на розмір, а далі доплюсовую отримане число до ціни
 
 //Додати додавання збереження в localStorage
+// HIDE modal визивається просто так в редаксі
 
 const IMG_ALT_TEXT = "Pizza";
 
