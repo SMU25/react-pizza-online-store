@@ -2,7 +2,7 @@ import React, { useEffect, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
-import { getPizzaItems } from "redux/actions/pizzaItems";
+import { getPizzaItemsAsync } from "redux/actions/pizzaItems";
 import { setCategory, setSortBy } from "redux/actions/filters";
 import { selectPizzaItemsState } from "redux/selectors/pizzaItems";
 import { selectFiltersState } from "redux/selectors/filters";
@@ -33,7 +33,7 @@ const Home = () => {
   const activeCategory = activeCategoryQueryParam || category;
 
   useEffect(() => {
-    dispatch(getPizzaItems(activeCategory, sortBy));
+    dispatch(getPizzaItemsAsync(activeCategory, sortBy));
   }, [activeCategory, sortBy, dispatch]);
 
   const onSelectCategory = useCallback(

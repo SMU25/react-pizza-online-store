@@ -1,11 +1,9 @@
-import React, { useState, useCallback, memo } from "react";
+import React, { useState, useEffect, useCallback, memo } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "components/Button";
 import { PIZZA_TYPES, PIZZA_SIZES } from "constants/pizzaParameters";
 import { ReactComponent as Plus } from "assets/icons/plus.svg";
 import { PizzaParameter } from "./PizzaParameter";
-
-const PRICES_TYPES = { thin: 0, traditional: 25 };
 
 const IMG_ALT_TEXT = "Pizza";
 
@@ -19,9 +17,11 @@ export const PizzaCard = memo(
     id,
     imageUrl,
     onAddToCart,
+    onChangeParams,
     name = "No name",
     totalCountAdded = null,
     price = 0,
+    totalPricePizza = 0,
     types = [],
     sizes = [],
   }) => {
@@ -30,37 +30,33 @@ export const PizzaCard = memo(
     const [activeType, setActiveType] = useState(types[0]);
     const [activeSize, setActiveSize] = useState(sizes[0]);
 
-    //
-    const numericalRatio = activeSize / sizes[0];
-    const totalPricePizza =
-      Math.round(numericalRatio * price) + PRICES_TYPES[activeType];
-    //
+    const totalPrice = totalPricePizza || price;
+
     const onClickAddToCart = useCallback(() => {
       const pizzaObj = {
         id,
         name,
         imageUrl,
-        price: totalPricePizza,
+        price: totalPrice,
         type: activeType,
         size: activeSize,
       };
 
       onAddToCart(pizzaObj);
-    }, [
-      id,
-      name,
-      imageUrl,
-      totalPricePizza,
-      activeType,
-      activeSize,
-      onAddToCart,
-    ]);
+    }, [id, name, imageUrl, totalPrice, activeType, activeSize, onAddToCart]);
 
-    //CHANGE-  зробити ціну фіксовану і , щоб підтягувало в заледності від типу і розміру
-    //зробити карточки клікабельними, можна зробити окрему сторінку під карточку
+    useEffect(() => {
+      onChangeParams({
+        id,
+        activeType,
+        activeSize,
+        sizes,
+      });
+    }, [id, activeSize, activeType, sizes, onChangeParams]);
+
+    //CHANGE - можна зробити окрему сторінку під карточку
     //додати transition на типи і розміри
     // юзати компоненти для перекладу
-    // щоббув прайс в баксах
     //Додати додавання збереження в localStorage
 
     return (
@@ -104,7 +100,7 @@ export const PizzaCard = memo(
         </div>
         <div className="pizza-block__bottom">
           <div className="pizza-block__price">
-            {t(`${T_PREFIX} - ${PRICE_PIZZA}`, { price: totalPricePizza })}
+            {t(`${T_PREFIX} - ${PRICE_PIZZA}`, { price: totalPrice })}
           </div>
           <Button className="button--add" onClick={onClickAddToCart} outline>
             <Plus />

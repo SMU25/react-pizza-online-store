@@ -1,4 +1,5 @@
 import { ACTION_TYPES } from "redux/actions/pizzaItems";
+import { PRICE_TYPES } from "constants/prices";
 
 const initialState = {
   items: [],
@@ -17,6 +18,25 @@ const pizzaItemsReducer = (state = initialState, action) => {
       return {
         ...state,
         items: action.payload,
+      };
+
+    case ACTION_TYPES.ON_CHANGE_PIZZA_PARAMS:
+      const { id, activeType, activeSize, sizes } = action.payload;
+
+      const pizzaItems = state.items.map((item) => {
+        if (item.id === id) {
+          const numericalRatio = activeSize / sizes[0];
+          const totalPricePizza =
+            Math.round(numericalRatio * item.price) + PRICE_TYPES[activeType];
+
+          return { ...item, totalPricePizza };
+        }
+        return item;
+      });
+
+      return {
+        ...state,
+        items: pizzaItems,
       };
 
     default:

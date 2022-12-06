@@ -1,6 +1,7 @@
 import React, { memo, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
+import { onChangePizzaParams } from "redux/actions/pizzaItems";
 import { addPizzaToCart } from "redux/actions/cart";
 import { selectCartItems } from "redux/selectors/cart";
 import { PizzaCard } from "./PizzaCard";
@@ -18,6 +19,11 @@ export const PizzaItems = memo(({ isLoading, pizzaItems }) => {
 
   const cartItems = useSelector(selectCartItems);
 
+  const onChangeParams = useCallback(
+    (obj) => dispatch(onChangePizzaParams(obj)),
+    [dispatch]
+  );
+
   const onAddToCart = useCallback(
     (pizzaObj) => dispatch(addPizzaToCart(pizzaObj)),
     [dispatch]
@@ -33,6 +39,7 @@ export const PizzaItems = memo(({ isLoading, pizzaItems }) => {
         <PizzaCard
           key={`${pizzaItem.name}_${pizzaItem.id}`}
           onAddToCart={onAddToCart}
+          onChangeParams={onChangeParams}
           totalCountAdded={cartItems[pizzaItem.id]?.totalCount}
           {...pizzaItem}
         />
@@ -40,7 +47,7 @@ export const PizzaItems = memo(({ isLoading, pizzaItems }) => {
     } else {
       return <h2>{t(`${T_PREFIX} - ${NO_DATA_TEXT}`)}</h2>;
     }
-  }, [isLoading, pizzaItems, cartItems, onAddToCart, t]);
+  }, [isLoading, pizzaItems, cartItems, onAddToCart, onChangeParams, t]);
 
   return (
     <div className="content__items content__items--home">
