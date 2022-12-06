@@ -14,7 +14,9 @@ export const ModalWindow = () => {
 
   const modalRef = useRef();
 
-  const onClose = () => dispatch(hideModal());
+  const onClose = () => {
+    if (isOpen) dispatch(hideModal());
+  };
 
   useClickOutside(modalRef, onClose);
 

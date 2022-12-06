@@ -41,7 +41,7 @@ export const EN = {
   "pizza-card - traditional-26": "traditional, 26 cm. - {{count}}",
   "pizza-card - traditional-30": "traditional, 30 cm. - {{count}}",
   "pizza-card - traditional-40": "traditional, 40 cm. - {{count}}",
-  "pizza-card - price": "from {{price}} ₴",
+  "pizza-card - price": "Price: {{price}} ₴",
   "pizza-card - total-price": "{{totalPrice}} ₴",
   "pizza-card - add": "Add",
 

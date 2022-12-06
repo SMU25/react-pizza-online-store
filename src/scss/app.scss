@@ -53,6 +53,7 @@ body {
   &__items {
     display: flex;
     flex-wrap: wrap;
+    max-width: 1240px;
     margin: 0 auto;
 
     &--home {

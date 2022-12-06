@@ -41,7 +41,7 @@ export const UA = {
   "pizza-card - traditional-26": "традиційна, 26 см. - {{count}}",
   "pizza-card - traditional-30": "традиційна, 30 см. - {{count}}",
   "pizza-card - traditional-40": "традиційна, 40 см. - {{count}}",
-  "pizza-card - price": "від {{price}} ₴",
+  "pizza-card - price": "Ціна: {{price}} ₴",
   "pizza-card - total-price": "{{totalPrice}} ₴",
   "pizza-card - add": "Додати",
 

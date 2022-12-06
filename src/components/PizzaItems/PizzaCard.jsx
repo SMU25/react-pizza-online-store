@@ -1,5 +1,4 @@
 import React, { useState, useCallback, memo } from "react";
-import cn from "classnames";
 import { useTranslation } from "react-i18next";
 import { Button } from "components/Button";
 import { PIZZA_TYPES, PIZZA_SIZES } from "constants/pizzaParameters";
@@ -7,13 +6,6 @@ import { ReactComponent as Plus } from "assets/icons/plus.svg";
 import { PizzaParameter } from "./PizzaParameter";
 
 const PRICES_TYPES = { thin: 0, traditional: 25 };
-const PRICES_SIZES = { 26: 0, 30: 10, 40: 50 };
-//можна зробити вичислення залежно від ціни на піцу, щоб вираховувало ціну на бліьші розміри, наприклад: стоїть 150 , а я вираховую зі 150 наскільки дорожче буде 30 , тобто буде
-//спочатку розмір 30 * 100 , а потім ділю на ціну(150) 3000/150 = 115%
-// далі 15% * ціну(150) і ділю на розмір, а далі доплюсовую отримане число до ціни
-
-//Додати додавання збереження в localStorage
-// HIDE modal визивається просто так в редаксі
 
 const IMG_ALT_TEXT = "Pizza";
 
@@ -38,24 +30,38 @@ export const PizzaCard = memo(
     const [activeType, setActiveType] = useState(types[0]);
     const [activeSize, setActiveSize] = useState(sizes[0]);
 
+    //
+    const numericalRatio = activeSize / sizes[0];
+    const totalPricePizza =
+      Math.round(numericalRatio * price) + PRICES_TYPES[activeType];
+    //
     const onClickAddToCart = useCallback(() => {
       const pizzaObj = {
         id,
         name,
         imageUrl,
-        price,
+        price: totalPricePizza,
         type: activeType,
         size: activeSize,
       };
 
       onAddToCart(pizzaObj);
-    }, [id, name, imageUrl, price, activeType, activeSize, onAddToCart]);
+    }, [
+      id,
+      name,
+      imageUrl,
+      totalPricePizza,
+      activeType,
+      activeSize,
+      onAddToCart,
+    ]);
 
-    //CHANGE-  зробити ціну фіксовану і , щоб підтягувало в заледності від типу і розміру, вирівнювання карток, зробити , щоб йшли по порядку
-    //зробити карточки клікабельними, щоб при клікові додавало в корзину, можна зробити окрему сторінку під карточку
+    //CHANGE-  зробити ціну фіксовану і , щоб підтягувало в заледності від типу і розміру
+    //зробити карточки клікабельними, можна зробити окрему сторінку під карточку
     //додати transition на типи і розміри
     // юзати компоненти для перекладу
     // щоббув прайс в баксах
+    //Додати додавання збереження в localStorage
 
     return (
       <div className="pizza-block">
@@ -98,7 +104,7 @@ export const PizzaCard = memo(
         </div>
         <div className="pizza-block__bottom">
           <div className="pizza-block__price">
-            {t(`${T_PREFIX} - ${PRICE_PIZZA}`, { price })}
+            {t(`${T_PREFIX} - ${PRICE_PIZZA}`, { price: totalPricePizza })}
           </div>
           <Button className="button--add" onClick={onClickAddToCart} outline>
             <Plus />
