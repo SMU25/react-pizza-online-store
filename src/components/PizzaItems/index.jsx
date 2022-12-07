@@ -40,7 +40,7 @@ export const PizzaItems = memo(({ isLoading, pizzaItems }) => {
           key={`${pizzaItem.name}_${pizzaItem.id}`}
           onAddToCart={onAddToCart}
           updateTotalPrice={updateTotalPrice}
-          totalCountAdded={cartItems[pizzaItem.id]?.totalCount}
+          totalCountAdded={cartItems[pizzaItem?.id]?.totalCount}
           {...pizzaItem}
         />
       ));

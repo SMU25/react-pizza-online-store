@@ -61,8 +61,6 @@ export const PizzaCard = memo(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeType, activeSize]);
 
-    //CHANGE - Додати збереження в localStorage
-
     return (
       <div className="pizza-block">
         <div className="pizza-block__info" onClick={onClickAddToCart}>
