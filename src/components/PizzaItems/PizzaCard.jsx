@@ -17,8 +17,8 @@ export const PizzaCard = memo(
     id,
     imageUrl,
     onAddToCart,
-    onChangeParams,
-    name = "No name",
+    updateTotalPrice,
+    name,
     totalCountAdded = null,
     price = 0,
     totalPricePizza = 0,
@@ -45,19 +45,23 @@ export const PizzaCard = memo(
       onAddToCart(pizzaObj);
     }, [id, name, imageUrl, totalPrice, activeType, activeSize, onAddToCart]);
 
-    useEffect(() => {
-      onChangeParams({
-        id,
-        activeType,
-        activeSize,
-        sizes,
-      });
-    }, [id, activeSize, activeType, sizes, onChangeParams]);
+    const isUpdateTotalPrice =
+      totalPricePizza || activeType !== types[0] || activeSize !== sizes[0];
 
-    //CHANGE - можна зробити окрему сторінку під карточку
-    //додати transition на типи і розміри
-    // юзати компоненти для перекладу
-    //Додати додавання збереження в localStorage
+    useEffect(() => {
+      if (isUpdateTotalPrice) {
+        updateTotalPrice({
+          id,
+          activeType,
+          activeSize,
+          sizes,
+        });
+      }
+      // When adding other dependencies, useEffect is called 2 times
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [activeType, activeSize]);
+
+    //CHANGE - Додати збереження в localStorage
 
     return (
       <div className="pizza-block">

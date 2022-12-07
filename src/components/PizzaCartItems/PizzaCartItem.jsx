@@ -16,7 +16,7 @@ export const PizzaCartItem = memo(
     items,
     totalPrice,
     totalCount,
-    paramsInfo,
+    pizzaParamsInfo,
     onMinusCartItem,
     onPlusCartItem,
     onRemoveCartItem,
@@ -40,8 +40,6 @@ export const PizzaCartItem = memo(
       [id, onRemoveCartItem]
     );
 
-    const pizzaParamsFiltered = paramsInfo.filter(({ count }) => count);
-
     return (
       <div className="cart__item">
         <div className="cart__item-img">
@@ -57,7 +55,7 @@ export const PizzaCartItem = memo(
             {t(`${T_PREFIX} - ${name}`)}
           </h3>
           <ul>
-            {pizzaParamsFiltered.map(({ key, count }) => (
+            {pizzaParamsInfo.map(({ key, count }) => (
               <li key={key}>
                 <p>{t(`${T_PREFIX} - ${key}`, { count })}</p>
               </li>

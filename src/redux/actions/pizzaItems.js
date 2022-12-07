@@ -5,7 +5,7 @@ import { API_URL_PIZZA_ITEMS } from "constants/urls";
 export const ACTION_TYPES = {
   SET_IS_LOADING: "SET_IS_LOADING",
   SET_PIZZA_ITEMS: "SET_PIZZA_ITEMS",
-  ON_CHANGE_PIZZA_PARAMS: "ON_CHANGE_PIZZA_PARAMS",
+  UPDATE_TOTAL_PRICE_PIZZA: "UPDATE_TOTAL_PRICE_PIZZA",
 };
 
 export const setIsLoading = (payload) => ({
@@ -18,8 +18,8 @@ export const setPizzaItems = (payload) => ({
   payload,
 });
 
-export const onChangePizzaParams = (payload) => ({
-  type: ACTION_TYPES.ON_CHANGE_PIZZA_PARAMS,
+export const updateTotalPricePizza = (payload) => ({
+  type: ACTION_TYPES.UPDATE_TOTAL_PRICE_PIZZA,
   payload,
 });
 

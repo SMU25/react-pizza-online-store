@@ -22,7 +22,6 @@ i18n
     locales,
     resources,
     fallbackLng: "en",
-    debug: true, //console.log
     interpolation: {
       escapeValue: false,
     },

@@ -28,7 +28,7 @@ export const Header = () => {
           <Link to={PATHNAMES.CART}>
             <Button className="button--cart">
               <span>
-                {t(`${T_PREFIX} - ${TOTAL_PRICE_CART}`, { totalPrice })}
+                {t(`${T_PREFIX} - ${TOTAL_PRICE_CART}`, { totalPrice })}{" "}
               </span>
               <div className="button__delimiter"></div>
               <Cart />

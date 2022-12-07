@@ -1,13 +1,13 @@
 import React, { memo, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
-import { onChangePizzaParams } from "redux/actions/pizzaItems";
+import { updateTotalPricePizza } from "redux/actions/pizzaItems";
 import { addPizzaToCart } from "redux/actions/cart";
 import { selectCartItems } from "redux/selectors/cart";
 import { PizzaCard } from "./PizzaCard";
 import { LoadingPizzaCard } from "./LoadingPizzaCard";
 
-const ARRAY_EMPTY_ELEMENTS = Array.from({ length: 12 });
+const ARRAY_EMPTY_ITEMS = Array.from({ length: 12 });
 
 const T_PREFIX = "pizza-items";
 const NO_DATA_TEXT = "no-data";
@@ -19,8 +19,8 @@ export const PizzaItems = memo(({ isLoading, pizzaItems }) => {
 
   const cartItems = useSelector(selectCartItems);
 
-  const onChangeParams = useCallback(
-    (obj) => dispatch(onChangePizzaParams(obj)),
+  const updateTotalPrice = useCallback(
+    (obj) => dispatch(updateTotalPricePizza(obj)),
     [dispatch]
   );
 
@@ -31,7 +31,7 @@ export const PizzaItems = memo(({ isLoading, pizzaItems }) => {
 
   const renderedPizzaItems = useMemo(() => {
     if (isLoading) {
-      return ARRAY_EMPTY_ELEMENTS.map((_, index) => (
+      return ARRAY_EMPTY_ITEMS.map((_, index) => (
         <LoadingPizzaCard key={index} />
       ));
     } else if (pizzaItems?.length) {
@@ -39,7 +39,7 @@ export const PizzaItems = memo(({ isLoading, pizzaItems }) => {
         <PizzaCard
           key={`${pizzaItem.name}_${pizzaItem.id}`}
           onAddToCart={onAddToCart}
-          onChangeParams={onChangeParams}
+          updateTotalPrice={updateTotalPrice}
           totalCountAdded={cartItems[pizzaItem.id]?.totalCount}
           {...pizzaItem}
         />
@@ -47,7 +47,7 @@ export const PizzaItems = memo(({ isLoading, pizzaItems }) => {
     } else {
       return <h2>{t(`${T_PREFIX} - ${NO_DATA_TEXT}`)}</h2>;
     }
-  }, [isLoading, pizzaItems, cartItems, onAddToCart, onChangeParams, t]);
+  }, [isLoading, pizzaItems, cartItems, onAddToCart, updateTotalPrice, t]);
 
   return (
     <div className="content__items content__items--home">

@@ -20,7 +20,7 @@ const pizzaItemsReducer = (state = initialState, action) => {
         items: action.payload,
       };
 
-    case ACTION_TYPES.ON_CHANGE_PIZZA_PARAMS:
+    case ACTION_TYPES.UPDATE_TOTAL_PRICE_PIZZA:
       const { id, activeType, activeSize, sizes } = action.payload;
 
       const pizzaItems = state.items.map((item) => {

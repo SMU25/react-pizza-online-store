@@ -2,11 +2,25 @@ import { ACTION_TYPES } from "redux/actions/cart";
 import { getTotalPrice } from "utils/getTotalPrice";
 import { getTotalSumObj } from "utils/getTotalSumObj";
 import { PIZZA_TYPES, PIZZA_SIZES } from "constants/pizzaParameters";
+import { getLastArrayItem } from "utils/getLastArrayItem";
 
 const DATA_KEYS = {
   TOTAL_PRICE: "totalPrice",
   TOTAL_COUNT: "totalCount",
 };
+
+const updateCountPizzaParams = (pizzaParamsInfo, addedItem, operator = "-") =>
+  pizzaParamsInfo.map((item) => {
+    const count = operator === "-" ? item.count - 1 : item.count + 1;
+
+    return item.key === `${addedItem.type}-${addedItem.size}`
+      ? { ...item, count }
+      : item;
+  });
+
+//Filtering against empty values
+const getFilteredPizzaParamsInfo = (pizzaParamsInfo) =>
+  pizzaParamsInfo.filter(({ count }) => count);
 
 const initialState = {
   items: {},
@@ -27,7 +41,7 @@ const cartReducer = (state = initialState, action) => {
 
       //Count of each pizza by parameter. Divided into 2 arrays by type.
       //Returns an object with two properties { key: "string for translate", count: count pizzas }
-      const countPizzasByParams = PIZZA_TYPES.map((type) =>
+      const pizzaParamsInfo = PIZZA_TYPES.map((type) =>
         pizzasSortedBySize.map((items) => {
           const filteredItems = items.filter((item) => item.type === type);
           if (filteredItems.length) {
@@ -42,13 +56,10 @@ const cartReducer = (state = initialState, action) => {
       );
 
       //Combining all arrays into one
-      const combinedCountPizzasByParams = [].concat.apply(
-        [],
-        countPizzasByParams
-      );
+      const combinedPizzaParamsInfo = [].concat.apply([], pizzaParamsInfo);
 
       //Filtering against empty values
-      const filteredCountPizzasByParams = combinedCountPizzasByParams.filter(
+      const filteredPizzaParamsInfo = combinedPizzaParamsInfo.filter(
         (item) => item
       );
 
@@ -58,7 +69,7 @@ const cartReducer = (state = initialState, action) => {
           items: allPizzasById,
           totalPrice: getTotalPrice(allPizzasById),
           totalCount: allPizzasById.length,
-          paramsInfo: filteredCountPizzasByParams,
+          pizzaParamsInfo: filteredPizzaParamsInfo,
         },
       };
 
@@ -77,6 +88,7 @@ const cartReducer = (state = initialState, action) => {
     case ACTION_TYPES.MINUS_CART_ITEM: {
       const currentItemById = state.items[action.payload];
       const allPizzasById = currentItemById.items;
+      const pizzaParamsInfo = currentItemById.pizzaParamsInfo;
 
       let deletedItem = null;
 
@@ -84,11 +96,12 @@ const cartReducer = (state = initialState, action) => {
         deletedItem = allPizzasById.pop();
       }
 
-      const paramsInfo = currentItemById.paramsInfo.map((item) =>
-        deletedItem && item.key === `${deletedItem.type}-${deletedItem.size}`
-          ? { ...item, count: item.count - 1 }
-          : item
-      );
+      const newPizzaParamsInfo = deletedItem
+        ? updateCountPizzaParams(pizzaParamsInfo, deletedItem)
+        : pizzaParamsInfo;
+
+      const filteredPizzaParamsInfo =
+        getFilteredPizzaParamsInfo(newPizzaParamsInfo);
 
       const newItems = {
         ...state.items,
@@ -96,7 +109,7 @@ const cartReducer = (state = initialState, action) => {
           items: allPizzasById,
           totalPrice: getTotalPrice(allPizzasById),
           totalCount: allPizzasById.length,
-          paramsInfo,
+          pizzaParamsInfo: filteredPizzaParamsInfo,
         },
       };
 
@@ -115,14 +128,18 @@ const cartReducer = (state = initialState, action) => {
     case ACTION_TYPES.PLUS_CART_ITEM: {
       const currentItemById = state.items[action.payload];
       const prevPizzasById = currentItemById.items;
-      const lastAddedItem = prevPizzasById[prevPizzasById.length - 1];
+      const pizzaParamsInfo = currentItemById.pizzaParamsInfo;
+      const lastAddedItem = getLastArrayItem(prevPizzasById);
       const allPizzasById = [...prevPizzasById, lastAddedItem];
 
-      const paramsInfo = currentItemById.paramsInfo.map(({ key, count }) =>
-        key === `${lastAddedItem.type}-${lastAddedItem.size}`
-          ? { key, count: count + 1 }
-          : { key, count }
+      const newPizzaParamsInfo = updateCountPizzaParams(
+        pizzaParamsInfo,
+        lastAddedItem,
+        "+"
       );
+
+      const filteredPizzaParamsInfo =
+        getFilteredPizzaParamsInfo(newPizzaParamsInfo);
 
       const newItems = {
         ...state.items,
@@ -130,7 +147,7 @@ const cartReducer = (state = initialState, action) => {
           items: allPizzasById,
           totalPrice: getTotalPrice(allPizzasById),
           totalCount: allPizzasById.length,
-          paramsInfo,
+          pizzaParamsInfo: filteredPizzaParamsInfo,
         },
       };
 
