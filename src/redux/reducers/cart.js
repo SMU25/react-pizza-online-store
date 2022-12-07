@@ -2,7 +2,9 @@ import { ACTION_TYPES } from "redux/actions/cart";
 import { getTotalPrice } from "utils/getTotalPrice";
 import { getTotalSumObj } from "utils/getTotalSumObj";
 import { PIZZA_TYPES, PIZZA_SIZES } from "constants/pizzaParameters";
+import { PIZZA_CART_STATE_KEY } from "constants/localStorage";
 import { getLastArrayItem } from "utils/getLastArrayItem";
+import { getLocalStorageItem } from "utils/getLocalStorageItem";
 
 const DATA_KEYS = {
   TOTAL_PRICE: "totalPrice",
@@ -28,7 +30,10 @@ const initialState = {
   totalCount: 0,
 };
 
-const cartReducer = (state = initialState, action) => {
+const cartReducer = (
+  state = getLocalStorageItem(PIZZA_CART_STATE_KEY) || initialState,
+  action
+) => {
   switch (action.type) {
     case ACTION_TYPES.ADD_PIZZA_TO_CART: {
       const pizzaId = action.payload.id;

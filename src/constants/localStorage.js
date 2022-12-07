@@ -1,0 +1,1 @@
+export const PIZZA_CART_STATE_KEY = "PIZZA_CART_STATE";
