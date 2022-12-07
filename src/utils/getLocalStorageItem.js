@@ -8,7 +8,7 @@ export const getLocalStorageItem = (key) => {
     stringifyItem.includes(NULL_TYPE) ||
     stringifyItem.includes(UNDEFINED_TYPE)
   ) {
-    return {};
+    return null;
   } else {
     return JSON.parse(localStorage.getItem(key));
   }
