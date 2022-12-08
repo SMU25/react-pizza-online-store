@@ -1,3 +1,5 @@
+## Deployed: [React Pizza - Online Store](https://react-pizza-online-store.vercel.app/?category=all)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
