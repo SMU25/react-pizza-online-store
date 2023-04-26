@@ -86,12 +86,12 @@ const Cart = () => {
           children: (
             <Alert
               approvalButtonName={t(`${T_PREFIX} - ${OKAY_BUTTON_NAME}`)}
-              onClose={onCloseModal}
+              onClose={onClearCart}
             />
           ),
         })
       ),
-    [dispatch, onCloseModal, t]
+    [dispatch, onClearCart, t]
   );
 
   const cartState = useMemo(() => {
