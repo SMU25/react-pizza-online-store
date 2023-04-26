@@ -72,43 +72,45 @@ export const PizzaCard = memo(
           />
           <h4 className="pizza-block__title">{t(`${T_PREFIX} - ${name}`)}</h4>
         </div>
-        <div className="pizza-block__selector">
-          <ul>
-            {PIZZA_TYPES.map((typeName) => (
-              <PizzaParameter
-                key={typeName}
-                param={typeName}
-                activeParam={activeType}
-                availableParams={types}
-                setActiveParameter={setActiveType}
-              >
-                {t(`${T_PREFIX} - ${typeName}`)}
-              </PizzaParameter>
-            ))}
-          </ul>
-          <ul>
-            {PIZZA_SIZES.map((sizeName) => (
-              <PizzaParameter
-                key={sizeName}
-                param={sizeName}
-                activeParam={activeSize}
-                availableParams={sizes}
-                setActiveParameter={setActiveSize}
-              >
-                {t(`${T_PREFIX} - ${SIZE_PIZZA_PARAM}`, { sizeName })}
-              </PizzaParameter>
-            ))}
-          </ul>
-        </div>
-        <div className="pizza-block__bottom">
-          <div className="pizza-block__price">
-            {t(`${T_PREFIX} - ${PRICE_PIZZA}`, { price: totalPrice })}
+        <div>
+          <div className="pizza-block__selector">
+            <ul>
+              {PIZZA_TYPES.map((typeName) => (
+                <PizzaParameter
+                  key={typeName}
+                  param={typeName}
+                  activeParam={activeType}
+                  availableParams={types}
+                  setActiveParameter={setActiveType}
+                >
+                  {t(`${T_PREFIX} - ${typeName}`)}
+                </PizzaParameter>
+              ))}
+            </ul>
+            <ul>
+              {PIZZA_SIZES.map((sizeName) => (
+                <PizzaParameter
+                  key={sizeName}
+                  param={sizeName}
+                  activeParam={activeSize}
+                  availableParams={sizes}
+                  setActiveParameter={setActiveSize}
+                >
+                  {t(`${T_PREFIX} - ${SIZE_PIZZA_PARAM}`, { sizeName })}
+                </PizzaParameter>
+              ))}
+            </ul>
           </div>
-          <Button className="button--add" onClick={onClickAddToCart} outline>
-            <Plus />
-            <span>{t(`${T_PREFIX} - ${ADD_BUTTON_NAME}`)}</span>
-            {totalCountAdded && <i>{totalCountAdded}</i>}
-          </Button>
+          <div className="pizza-block__bottom">
+            <div className="pizza-block__price">
+              {t(`${T_PREFIX} - ${PRICE_PIZZA}`, { price: totalPrice })}
+            </div>
+            <Button className="button--add" onClick={onClickAddToCart} outline>
+              <Plus />
+              <span>{t(`${T_PREFIX} - ${ADD_BUTTON_NAME}`)}</span>
+              {totalCountAdded && <i>{totalCountAdded}</i>}
+            </Button>
+          </div>
         </div>
       </div>
     );

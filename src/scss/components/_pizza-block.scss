@@ -1,6 +1,9 @@
 @import "../variables";
 
 .pizza-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 280px;
   text-align: center;
   margin: 0 15px 65px;
